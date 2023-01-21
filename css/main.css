@@ -1,0 +1,222 @@
+* {
+    box-sizing: border-box;
+  }
+  body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, rgba(17,153,59,1) 0%, rgba(4,40,33,1) 100%);
+  }
+  
+  #board {
+    display: grid;
+    height: 60vh;
+    width: 60vw;
+    grid-template-rows: 0.2fr 5fr 0.2fr 2.4fr 0.2fr 2.4fr 0.2fr 5fr 0.2fr 6fr 0.2fr 6fr 0.2fr;
+    grid-template-columns: 0.1fr 4fr repeat(13, 0.1fr 3fr) 0.1fr;
+    border: 0.01px solid black;
+  }
+  
+  #board * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+ 
+  
+  #zero-zero {
+    border: 1px solid white;
+    border-radius: 50%;
+    grid-area: 2 / 2 / span 3 / span 1;
+    margin: 1vmin;
+  }
+  
+  #zero {
+    grid-area: 6 / 2 / span 3 / span 1;
+    border: 1px solid white;
+    border-radius: 50%;
+    margin: 1vmin;
+  }
+  
+  #one-to-twelve {
+    grid-area: 10 / 4 / span 1 / span 7;
+    border: 1px solid black;
+    border-radius: 50%;
+  }
+  #thirteen-to-twentyfour {
+    grid-area: 10 / 12 / span 1 / span 7;
+    border: 1px solid black;
+    border-radius: 50%;
+  }
+  #twentyfive-to-thirtysix {
+    grid-area: 10 / 20 / span 1 / span 7;
+    border: 1px solid black;
+    border-radius: 50%;
+  }
+  #one-to-eighteen {
+    grid-area: 12 / 4 / span 1 / span 3;
+    border: 1px solid black;
+    border-radius: 50%;
+  }
+  #EVEN {
+    grid-area: 12 / 8 / span 1 / span 3;
+    border: 1px solid black;
+    border-radius: 50%;
+  }
+  #RED {
+    grid-area: 12 / 12 / span 1 / span 3;
+    border: 1px solid black;
+    border-radius: 50%;
+  }
+  #BLACK {
+    grid-area: 12 / 16 / span 1 / span 3;
+    border: 1px solid black;
+    border-radius: 50%;
+  }
+  #ODD {
+    grid-area: 12 / 20 / span 1 / span 3;
+    border: 1px solid black;
+    border-radius: 50%;
+  }
+  #nineteen-to-thirtysix {
+    grid-area: 12 / 24 / span 1 / span 3;
+    border: 1px solid black;
+    border-radius: 50%;
+  }
+  .span-row {
+    grid-row: span 3;
+  }
+  .line {
+    background-color: white;
+  }
+  .num {
+    border-radius: 50%;
+    border: 0.01rem solid black;
+    margin: 0.05rem;
+  }
+
+  #board > div > div {
+    height: 80%;
+    width: 80%;
+  }
+  .rotate {
+    transform: rotate(-90deg);
+  }
+  div div div {
+    font-size: 5vmin;
+    color: white;
+  }
+  .last-col {
+    font-size: 3vmin;
+  }
+  .last-row {
+    font-size: 4vmin
+  }
+  .black {
+    background-color: black;
+  }
+  .red {
+    background-color: red;
+  }
+
+  #history {
+    height: 50vh;
+    width: 5vw;
+    position: absolute;
+    top: 1vh;
+    right: 3vw;
+    border: 0.1vmin solid white;
+  }
+
+  #clear {
+    height: 13vmin;
+    width: 15vmin; 
+    position: absolute;
+    left: 2vw;
+    top: 25vh;
+    border-radius: 30%;
+    font-size: 4vmin;
+    background-color: transparent;
+  }
+
+  #undo {
+    height: 13vmin;
+    width: 15vmin;
+    position: absolute;
+    left: 11vw;
+    top: 25vh;
+    border-radius: 30%;
+    font-size: 4vmin;
+    background-color: transparent;
+  }
+
+  #spin {
+    height: 30vmin;
+    width: 30vmin;
+    position: absolute;
+    right: 3vw;
+    bottom: 3vh;
+    background-color: transparent;
+    border: none;
+  }
+
+  .chip {
+    height: 18vmin;
+    width: 18vmin;
+    border-radius: 50%;
+    position: absolute;
+    border: 0.6vmin solid black;
+    font-size: 4vmin;
+  }
+  #chip-one {
+    left: 6vw;
+    bottom: 30vh;
+    background-image: url(/img/silver_chip.jpg);
+    background-size: cover;
+  }
+  #chip-two {
+    left: 8vw;
+    bottom: 20vh;
+    background-image: url(/img/yellow_chip.jpg);
+    background-size: cover;
+  }
+  #chip-five {
+    left: 10vw;
+    bottom: 8vh;
+    background-image: url(/img/green_chip.jpg);
+    background-size: cover;
+  }
+  #chip-ten {
+    left: 14vw;
+    bottom: 1vh;
+    background-image: url(/img/blue_chip.jpg);
+    background-size: cover;
+  }
+  #chip-hundred {
+    left: 20vw;
+    bottom: 0vh;
+    background-image: url(/img/purple_chip.jpg);
+    background-size: cover;
+  }
+
+  #balance {
+    height: 15vmin;
+    width: 40vmin;
+    position: absolute;
+    bottom: 3vh;
+    text-align: center;
+    font-size: 10vmin;
+  }
+
+  #bet-amount {
+    height: 8vmin;
+    width: 20vmin;
+    position: absolute;
+    bottom: 10vh;
+    right: 25vw;
+    text-align: center;
+    font-size: 6vmin;
+    color: yellow;
+  }

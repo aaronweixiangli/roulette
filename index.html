@@ -9,6 +9,448 @@
     <script defer src="js/main.js"></script>
 </head>
 <body>
+  <div id="board">
     
+    <div id="zero-zero">
+      <div class="rotate">00</div>
+    </div>
+    <div id="zero">
+      <div class="rotate">0</div>
+    </div>
+    <div id="one-to-twelve">
+      <div>1-12</div>
+    </div>
+    <div id="thirteen-to-twentyfour">
+      <div>13-24</div>
+    </div>
+    <div id="twentyfive-to-thirtysix">
+      <div>25-36</div>
+    </div>
+    <div id="one-to-eighteen">
+      <div class="last-row">1-18</div>
+    </div>
+    <div id="EVEN">
+      <div class="last-row">EVEN</div>
+    </div>
+    <div id="RED">
+      <div class="last-row">RED</div>
+    </div>
+    <div id="BLACK">
+      <div class="last-row">BLACK</div>
+    </div>
+    <div id="ODD">
+      <div class="last-row">ODD</div>
+    </div>
+    <div id="nineteen-to-thirtysix">
+      <div class="last-row">19-36</div>
+    </div>
+
+<!--     first row 29 elements-->
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+
+<!--     second row 28 elements-->
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="num red">
+      <div class="rotate">3</div>
+    </div>
+    <div class="line"></div>
+    <div class="num black">
+      <div class="rotate">6</div>
+    </div>
+    <div class="line"></div>
+    <div class="num red">
+      <div class="rotate">9</div>
+    </div>
+    <div class="line"></div>
+    <div class="num red">
+      <div class="rotate">12</div>
+    </div>
+    <div class="line"></div>
+    <div class="num black">
+      <div class="rotate">15</div>
+    </div>
+    <div class="line"></div>
+    <div class="num red">
+      <div class="rotate">18</div>
+    </div>
+    <div class="line"></div>
+    <div class="num red">
+      <div class="rotate">21</div>
+    </div>
+    <div class="line"></div>
+    <div class="num black">
+      <div class="rotate">24</div>
+    </div>
+    <div class="line"></div>
+    <div class="num red">
+      <div class="rotate">27</div>
+    </div>
+    <div class="line"></div>
+    <div class="num red">
+      <div class="rotate">30</div>
+    </div>
+    <div class="line"></div>
+    <div class="num black">
+      <div class="rotate">33</div>
+    </div>
+    <div class="line"></div>
+    <div class="num red">
+      <div class="rotate">36</div>
+    </div>
+    <div class="line"></div>
+    <div class="num">
+      <div class="rotate last-col">3rd</div>
+    </div>
+    <div class="line"></div>
+
+
+<!--     third row 28 elements-->
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+
+<!--     fourth row 28 elements-->
+    <div class="line span-row"></div>
+    <div class="line span-row"></div>
+    <div class="num span-row black">
+      <div class="rotate">2</div>
+    </div>
+    <div class="line span-row"></div>
+    <div class="num span-row red">
+      <div class="rotate">5</div>
+    </div>
+    <div class="line span-row"></div>
+    <div class="num span-row black">
+      <div class="rotate">8</div>
+    </div>
+    <div class="line span-row"></div>
+    <div class="num span-row black">
+      <div class="rotate">11</div>
+    </div>
+    <div class="line span-row"></div>
+    <div class="num span-row red">
+      <div class="rotate">14</div>
+    </div>
+    <div class="line span-row"></div>
+    <div class="num span-row black">
+      <div class="rotate">17</div>
+    </div>
+    <div class="line span-row"></div>
+    <div class="num span-row black">
+      <div class="rotate">20</div>
+    </div>
+    <div class="line span-row"></div>
+    <div class="num span-row red">
+      <div class="rotate">23</div>
+    </div>
+    <div class="line span-row"></div>
+    <div class="num span-row black">
+      <div class="rotate">26</div>
+    </div>
+    <div class="line span-row"></div>
+    <div class="num span-row black">
+      <div class="rotate">29</div>
+    </div>
+    <div class="line span-row"></div>
+    <div class="num span-row red">
+      <div class="rotate">32</div>
+    </div>
+    <div class="line span-row"></div>
+    <div class="num span-row black">
+      <div class="rotate">35</div>
+    </div>
+    <div class="line span-row"></div>
+    <div class="num span-row">
+      <div class="rotate last-col">2nd</div>
+    </div>
+    <div class="line span-row"></div>
+    
+<!--     fifth row 1 elements-->
+    <div class="line"></div>
+
+<!--     sixth row 28 elements-->
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+
+<!--     seventh row 28 elements-->
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="num red">
+      <div class="rotate">1</div>
+    </div>
+    <div class="line"></div>
+    <div class="num black">
+      <div class="rotate">4</div>
+    </div>
+    <div class="line"></div>
+    <div class="num red">
+      <div class="rotate">7</div>
+    </div>
+    <div class="line"></div>
+    <div class="num black">
+      <div class="rotate">10</div>
+    </div>
+    <div class="line"></div>
+    <div class="num black">
+      <div class="rotate">13</div>
+    </div>
+    <div class="line"></div>
+    <div class="num red">
+      <div class="rotate">16</div>
+    </div>
+    <div class="line"></div>
+    <div class="num red">
+      <div class="rotate">19</div>
+    </div>
+    <div class="line"></div>
+    <div class="num black">
+      <div class="rotate">22</div>
+    </div>
+    <div class="line"></div>
+    <div class="num red">
+      <div class="rotate">25</div>
+    </div>
+    <div class="line"></div>
+    <div class="num black">
+      <div class="rotate">28</div>
+    </div>
+    <div class="line"></div>
+    <div class="num black">
+      <div class="rotate">31</div>
+    </div>
+    <div class="line"></div>
+    <div class="num red">
+      <div class="rotate">34</div>
+    </div>
+    <div class="line"></div>
+    <div class="num">
+      <div class="rotate last-col">1st</div>
+    </div>
+    <div class="line"></div>
+
+<!--     eighth row 29 elements-->
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+
+<!--     ninth row 8 elements-->
+    <div></div>
+    <div></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div></div>
+    <div></div>
+
+  <!--     tenth row 29 elements-->
+    <div></div>
+    <div></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div></div>
+    <div></div>
+
+<!--     eleventh row 11 elements-->
+    <div></div>
+    <div></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div></div>
+    <div></div>
+
+    <!--     twelfth row 29 elements-->
+    <div></div>
+    <div></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div></div>
+    <div></div>
+
+  </div>
+
+  <aside id="history">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </aside>
+
+  <button id="clear">clear</button>
+  <button id="undo">undo</button>
+  <button id="spin">spin</button>
+
+  <button class="chip" id="chip-one">1</button>
+  <button class="chip" id="chip-two">2</button>
+  <button class="chip" id="chip-five">5</button>
+  <button class="chip" id="chip-ten">10</button>
+  <button class="chip" id="chip-hundred">100</button>
+  <img id="spin" src="img/spin.png">
+
+  <footer id="balance">$1000</footer>
+  <footer id="bet-amount">$25</footer>
 </body>
 </html>
