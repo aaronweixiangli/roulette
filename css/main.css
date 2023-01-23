@@ -1,6 +1,10 @@
 * {
     box-sizing: border-box;
   }
+
+  *:focus {
+    outline: none;
+  }
   body {
     height: 100vh;
     display: flex;
@@ -321,3 +325,39 @@ div > .wider {
   pointer-events: auto !important;
 }
 
+div > .even-wider {
+  position: absolute;
+  height: 4vmin;
+  width: 10vmin;
+  z-index: 1;
+  pointer-events: auto !important;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  /* transition: visibility 0s opacity 0.25s transform 0.25s; */
+}
+
+.modal > #wheel {
+  position: absolute;
+  height: 80vmin;
+  width: 80vmin;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) ;
+  background-color: transparent;
+}
+
+.show-modal {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 1s;
+  z-index: 1;
+}

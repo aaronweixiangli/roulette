@@ -68,6 +68,7 @@ const spinBtn = document.getElementById('spin');
 const messageEl = document.querySelector('h1');
 const oddHistoryEls = [...document.querySelectorAll('#odd-history > div')];
 const evenHistoryEls = [...document.querySelectorAll('#even-history > div')];
+const modalEl = document.getElementById('wheel-container');
 
 /*----- event listeners -----*/
 
@@ -124,14 +125,16 @@ function init() {
 function handleBet(evt) {
     // Guard. If the clicked element has no 'nums' attribute. Do nothing
     if (!evt.target.getAttribute('nums') && !evt.target.parentElement.getAttribute('nums')) return;
-    // Guard. If the player's current balance is less than or equal to zero. Do nothing
-    if (balance <= 0) return;
+    // Guard. If the player's current balance is less than or equal to zero,
+    // or current balance - chosen chip < 0.  Do nothing
+    if (balance <= 0 || balance - chosenChip < 0) return;
     let betPosition = evt.target;
     console.log(betPosition);
     let betIdx;
     if (betPosition.getAttribute('class') === 'larger-area' || 
         betPosition.getAttribute('class') === 'taller' ||
-        betPosition.getAttribute('class') === 'wider') {
+        betPosition.getAttribute('class') === 'wider' ||
+        betPosition.getAttribute('class') === 'even-wider') {
         betIdx = boardEls.indexOf(betPosition.parentElement);
     } else {
         betIdx = boardEls.indexOf(betPosition);
@@ -223,11 +226,16 @@ function handleRepeatLastBet() {
 }
 
 function handleSpin(evt) {
+    // Store the data from the previous game
     previousBoard = board; 
     previousBetOrder = betOrder; 
     previousPayout = payout; 
     previousTotalBet = totalBet;
     previousBalance = balance;
+    // Toggle or add a 'show-modal' class to the modal class which contains the wheel
+    modalEl.classList.toggle('show-modal');
+
+
     let winningNumIdx = Math.floor(Math.random() * NUMBERS.length);
     winningNum = NUMBERS[winningNumIdx];
     console.log(winningNum);
