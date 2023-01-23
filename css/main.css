@@ -8,8 +8,14 @@
     align-items: center;
     background: radial-gradient(circle, rgba(17,153,59,1) 0%, rgba(4,40,33,1) 100%);
   }
+
+  h1 {
+    position: absolute;
+    top: 1vmin;
+    font-size: 7vmin;
+  }
   
-  #board {
+  .board {
     display: grid;
     height: 60vh;
     width: 60vw;
@@ -18,7 +24,7 @@
     border: 0.01px solid black;
   }
   
-  #board * {
+  .board * {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -125,9 +131,23 @@
     height: 50vh;
     width: 5vw;
     position: absolute;
-    top: 1vh;
+    top: 3vh;
     right: 3vw;
     border: 0.1vmin solid white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-weight: bold;
+  }
+
+  #odd-history, #even-history {
+    display: grid;
+    grid-template-rows: repeat(10, 1fr);
+    justify-items: center;
+    align-items: center;
+  }
+  
+  #odd-history {
+    border-right: 0.1vmin dashed white;
   }
 
   #clear {
@@ -152,14 +172,24 @@
     background-color: transparent;
   }
 
+  #clear:hover, #undo:hover, #double-bet:hover, #repeat-last-bet:hover {
+    background-color: rgb(28, 75, 34);
+  }
+
   #spin {
-    height: 30vmin;
-    width: 30vmin;
+    height: 25vmin;
+    width: 25vmin;
     position: absolute;
     right: 3vw;
     bottom: 3vh;
     background-color: transparent;
     border: none;
+  }
+
+  #spin:hover {
+    height: 28vmin;
+    width: 28vmin;
+    transition: 0.2s ease-in-out;
   }
 
   .chip {
@@ -170,35 +200,63 @@
     border: 0.6vmin solid black;
     font-size: 4vmin;
   }
-  #chip-one {
+
+  .active, .chip:hover {
+    height: 23vmin;
+    width: 23vmin;
+    font-size: 5vmin;
+    transition: 0.3s ease-in-out;
+    z-index: 1;
+  }
+
+
+  #silver-chip {
     left: 6vw;
     bottom: 30vh;
     background-image: url(/img/silver_chip.jpg);
     background-size: cover;
   }
-  #chip-two {
+  #yellow-chip {
     left: 8vw;
     bottom: 20vh;
     background-image: url(/img/yellow_chip.jpg);
     background-size: cover;
   }
-  #chip-five {
+  #green-chip {
     left: 10vw;
     bottom: 8vh;
     background-image: url(/img/green_chip.jpg);
     background-size: cover;
   }
-  #chip-ten {
+  #blue-chip {
     left: 14vw;
     bottom: 1vh;
     background-image: url(/img/blue_chip.jpg);
     background-size: cover;
   }
-  #chip-hundred {
+  #purple-chip {
     left: 20vw;
     bottom: 0vh;
     background-image: url(/img/purple_chip.jpg);
     background-size: cover;
+  }
+  #double-bet {
+    position: absolute;
+    right: 15vw;
+    bottom: 10vh;
+    height: 13vmin;
+    width: 15vmin;
+    background-color: transparent;
+    border-radius: 30%;
+  }
+  #repeat-last-bet {
+    position: absolute;
+    right: 15vw;
+    bottom: 25vh;
+    height: 13vmin;
+    width: 15vmin;
+    background-color: transparent;
+    border-radius: 30%;
   }
 
   #balance {
@@ -220,3 +278,46 @@
     font-size: 6vmin;
     color: yellow;
   }
+
+/* every slot has a chip inside but it's hidden until click */
+figure {
+  position: absolute; 
+  border-radius: 50%; 
+  height:6vmin; 
+  width: 6vmin; 
+  background-image: url(../img/silver_chip.jpg); 
+  background-size: cover;
+  visibility: hidden;
+  margin: 0;
+  font-size: 50%;
+  /* z-index: 1; */
+}
+
+.board div div, .board div figure {
+  pointer-events: none;
+}
+
+.larger-area {
+  position: absolute;
+  height: 5vmin;
+  width: 5vmin;
+  z-index: 1;
+  pointer-events: auto !important;
+}
+
+div > .taller {
+  position: absolute;
+  height: 6vmin;
+  width: 4vmin;
+  z-index: 1;
+  pointer-events: auto !important;
+}
+
+div > .wider {
+  position: absolute;
+  height: 4vmin;
+  width: 5vmin;
+  z-index: 1;
+  pointer-events: auto !important;
+}
+
