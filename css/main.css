@@ -25,7 +25,6 @@
     width: 60vw;
     grid-template-rows: 0.2fr 5fr 0.2fr 2.4fr 0.2fr 2.4fr 0.2fr 5fr 0.2fr 6fr 0.2fr 6fr 0.2fr;
     grid-template-columns: 0.1fr 4fr repeat(13, 0.1fr 3fr) 0.1fr;
-    border: 0.01px solid black;
   }
   
   .board * {
@@ -384,7 +383,7 @@ div > .even-wider {
   opacity: 1;
   visibility: visible;
   transition: opacity 1s;
-  z-index: 1;
+  z-index: 2;
 }
 
 .show-modal > #wheel {
@@ -395,4 +394,12 @@ div > .even-wider {
 .show-modal #ball-container {
   /* transform: rotate(125.5deg); */
   transition: all 5s ease-out;
+}
+
+.modal > h1 {
+  position: absolute;
+  margin-left: auto;
+  top: 0vh;
+  font-size: 4vmin;
+  color: orange;
 }

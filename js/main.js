@@ -43,17 +43,14 @@ let board; // array; store the bet amount in each 'cell'
 let payout; //object; store numbers as key and payout as value. return the payout of that number if it's the winning number
 let winningNum; // integer; store the winning number
 let chosenChip; // integer; store the value of the chip chosen by the player
-let betStatus; // integer; 1/-1 represents True/False
-let spinStatus; // interger; 1/-1 represents True/False
 let oddHistory; // array; store the odd winning numbers of the past ten games.
 let evenHistory; // array; store the even winning numbers of the past ten games.
+let spinStatus; // boolean; True -> wheel is spinning. False -> wheel stops spinning.
 let previousBoard; // array; store board of the last game
 let previousPayout; // object; store the payout of the last game
 let previousBetOrder; // array; store the betOrder of the last game
 let previousTotalBet; // integer; store the totalBet of the last game
 let previousBalance; // integer; store the ending balance of the last game
-// let degreeWheel; //integer; store the rotation degree of the wheel
-// let degreeBall; //integer; store the rotation degree of the ball
 
     
 /*----- cached elements  -----*/
@@ -76,6 +73,7 @@ const evenHistoryEls = [...document.querySelectorAll('#even-history > div')];
 const modalEl = document.getElementById('wheel-container');
 const wheelEl = document.getElementById('wheel');
 const ballEl = document.getElementById('ball-container');
+const winningMsgEl = document.getElementById('winning-message');
 
 /*----- event listeners -----*/
 
@@ -95,6 +93,11 @@ doubleBetBtn.addEventListener('click', handleDoubleBet);
 repeatLastBetBtn.addEventListener('click', handleRepeatLastBet);
 // update the winning number when spin button is clicked.
 spinBtn.addEventListener('click', handleSpin);
+// update balance when the wheel stops spinning and show the winning message. That is, transition has ended.
+wheelEl.addEventListener('transitionend', handleSpinStops);
+// whenever the player clicks after the transition ends
+// reset all data to its initial values, except for the chosenChip and history array
+modalEl.addEventListener('click', handleNewGame);
 
 
 
@@ -122,8 +125,6 @@ function init() {
     payout = {};
     winningNum = null;
     chosenChip = 1; //Initial chip
-    betStatus = 1; // True
-    spinStatus = -1; //False when bet amount = 0;
     oddHistory = [];
     evenHistory = [];
     render();
@@ -232,7 +233,7 @@ function handleRepeatLastBet() {
     render();
 }
 
-function handleSpin(evt) {
+function handleSpin() {
     // Store the data from the previous game
     previousBoard = board; 
     previousBetOrder = betOrder; 
@@ -276,25 +277,39 @@ function handleSpin(evt) {
     console.log(`winning idx round: ${winningBallIdx}`);
     console.log(`winning number: ${NUMBERS[winningBallIdx]}`);
 
-    
-
-
-
-
-
-
-
-
-
-    let winningNumIdx = Math.floor(Math.random() * NUMBERS.length);
-    winningNum = NUMBERS[winningNumIdx];
+    // update the winning number
+    winningNum = NUMBERS[winningBallIdx];
     console.log(winningNum);
+    // update the spinStatus to be True
+    spinStatus = true; 
+
+}
+function handleSpinStops() {
+    messageEl.style.visibility = 'hidden'; // hide the message 'Place your bets'
+    // if the winningNum is in our payout object, which means player has hit the right number.
+    // Update the player's balance.
     if (winningNum in payout) {
         balance += payout[winningNum];
-        messageEl.textContent = `Winning ball is ${winningNum}. Player wins!`;
+        if (RED.includes(winningNum)) {
+            winningMsgEl.textContent = `RED ${winningNum}! Player wins ${payout[winningNum]}!`
+        } else if (BLACK.includes(winningNum)) {
+            winningMsgEl.textContent = `BLACK ${winningNum}! Player wins ${payout[winningNum]}!`
+        } else {
+            winningMsgEl.textContent = `WHITE ${winningNum}! Player wins ${payout[winningNum]}!`
+        }
+    // else, the dealer wins and update the winning message.
     } else {
-        messageEl.textContent = `Winning ball is ${winningNum}. Dealer wins!`;
+        if (RED.includes(winningNum)) {
+            winningMsgEl.textContent = `RED ${winningNum}! Dealer wins!`
+        } else if (BLACK.includes(winningNum)) {
+            winningMsgEl.textContent = `BLACK ${winningNum}! Dealer wins!`
+        } else {
+            winningMsgEl.textContent = `WHITE ${winningNum}! Dealer wins!`
+        }
     }
+    // If the winning number is odd, then push it to the oddHistory array.
+    // Also push null to the evenHistory array so they have the same array length.
+    // else, do the opposite.
     if (parseInt(winningNum) % 2 === 1){
         oddHistory.push(winningNum);
         evenHistory.push(null);
@@ -302,10 +317,30 @@ function handleSpin(evt) {
         evenHistory.push(winningNum);
         oddHistory.push(null);
     }
+    // We are only storing numbers for the past 10 games.
+    // so whenever the length of the oddHistory array goes above 10, remove the left element for both odd and even history.
     if (oddHistory.length > 10) {
         oddHistory.shift();
         evenHistory.shift();
     }
+    // Once transition is ended. Update the spinStatus to be False.
+    spinStatus = false;
+}
+
+function handleNewGame(){
+    // Guard. If the spinStatus is True, which means the wheel is spinning, then do nothing.
+    if (spinStatus) return;
+    // Toggle or remove the 'show-modal' class from the modal class which contains the wheel
+    // so the wheel is hidden
+    modalEl.classList.toggle('show-modal');
+    // reset the wheel and ball rotation degree to intial values
+    wheelEl.style.transform = '';
+    ballEl.style.transform = 'rotate(45deg)';
+    // changes the messageEl to be visible again
+    messageEl.style.visibility = 'visible';
+    // empty the winningMsgEl's text
+    winningMsgEl.textContent = '';
+    // Starts the new game so update the all data to its initial values, except chosenChip and history array
     board = [
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //11 elements that take more than 1 span
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // first row 29 elements
@@ -325,10 +360,9 @@ function handleSpin(evt) {
     totalBet = 0;
     payout = {};
     winningNum = null;
-    betStatus = 1; // True
-    spinStatus = -1; //False when bet amount = 0;
     render();
 }
+
 
 
 function render() {
