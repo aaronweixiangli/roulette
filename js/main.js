@@ -27,10 +27,13 @@ const BLACK = ['2', '4', '6', '8', '10', '11', '13', '15', '17', '20', '22', '24
 
 // all numbers
 const NUMBERS = [
-    '1', '3', '5', '7', '9', '12', '14', '16', '18', '19', '21', '23', '25', '27', '30', '32', '34', '36', 
-    '2', '4', '6', '8', '10', '11', '13', '15', '17', '20', '22', '24', '26', '28', '29', '31', '33', '35',
-    '0', '00'
+    '0', '28', '9', '26', '30', '11', '7', '20', '32', '17', '5', '22', '34',
+    '15', '3', '24', '36', '13', '1', '00', '27', '10', '25', '29', '12', '8',
+    '19', '31', '18', '6', '21', '33', '16', '4', '23', '35', '14', '2'
 ];
+
+// degrees per slice in the wheel. Total 38 numbers, 360 degrees
+const DEGREE_PER_SLICE = 360/NUMBERS.length;
 
 /*----- state variables -----*/
 let totalBet; // integer; store the total bet amount in the betting table
@@ -49,6 +52,8 @@ let previousPayout; // object; store the payout of the last game
 let previousBetOrder; // array; store the betOrder of the last game
 let previousTotalBet; // integer; store the totalBet of the last game
 let previousBalance; // integer; store the ending balance of the last game
+// let degreeWheel; //integer; store the rotation degree of the wheel
+// let degreeBall; //integer; store the rotation degree of the ball
 
     
 /*----- cached elements  -----*/
@@ -69,6 +74,8 @@ const messageEl = document.querySelector('h1');
 const oddHistoryEls = [...document.querySelectorAll('#odd-history > div')];
 const evenHistoryEls = [...document.querySelectorAll('#even-history > div')];
 const modalEl = document.getElementById('wheel-container');
+const wheelEl = document.getElementById('wheel');
+const ballEl = document.getElementById('ball-container');
 
 /*----- event listeners -----*/
 
@@ -234,6 +241,49 @@ function handleSpin(evt) {
     previousBalance = balance;
     // Toggle or add a 'show-modal' class to the modal class which contains the wheel
     modalEl.classList.toggle('show-modal');
+    // let the wheel spin 1080 degree + a random degree between 0 to 720
+    let degreeWheel = Math.floor(1080 + Math.random() * 720 + 1);
+    wheelEl.style.transform = `rotate(-${degreeWheel}deg)`;
+
+    console.log(`degreeWheel: ${degreeWheel}`);
+    // Do the same thing for degreeBall, but the ball needs to be rotated 45deg initially
+    let degreeBall = Math.floor(45 + 1080 + Math.random() * 720 + 1);
+    ballEl.style.transform = `rotate(${degreeBall}deg)`;
+
+
+    console.log(`degreeBall: ${degreeBall}`);
+    // if the ball does not move, then the index of the winning ball would be 
+    // the math.round [remainder of (wheel rotating degree / degrees per slice) / length of NUMBERS]
+    console.log(`wheelIdx: ${(degreeWheel/DEGREE_PER_SLICE) % NUMBERS.length}`);
+    let wheelRoundedIdx = Math.round((degreeWheel/DEGREE_PER_SLICE) % NUMBERS.length);
+    let wheelIdx = Math.round((degreeWheel/DEGREE_PER_SLICE) % NUMBERS.length);
+
+    console.log(`index: ${wheelRoundedIdx}`);
+    console.log(`winningBall-wheel only: ${NUMBERS[wheelRoundedIdx]}`);
+    // if the wheel does not move, then the index of the winning ball would be
+    // the math.round [remainder of (ball rotating degree / degrees per slice) / length of NUMBERS]
+    let ballRoundedIdx = Math.round(((degreeBall - 45)/DEGREE_PER_SLICE) % NUMBERS.length);
+    let ballIdx = ((degreeBall - 45)/DEGREE_PER_SLICE) % NUMBERS.length;
+    console.log(`ballIdx: ${((degreeBall - 45)/DEGREE_PER_SLICE) % NUMBERS.length}`);
+    console.log(`ball rounded index: ${ballRoundedIdx}`);
+    console.log(`winningBall-ball only: ${NUMBERS[ballRoundedIdx]}`);
+
+    // When the ball and the wheel both rotate, the winning index then would be 
+    // the remainder of (the rounded sum of wheelIdx and ballIdx / length of numbers)
+    let winningBallIdx = Math.round(wheelIdx + ballIdx) % 38;
+    console.log(`winning Idx: ${ ((degreeWheel/DEGREE_PER_SLICE) % NUMBERS.length) + 
+    (((degreeBall - 45)/DEGREE_PER_SLICE) % NUMBERS.length)}`);
+    console.log(`winning idx round: ${winningBallIdx}`);
+    console.log(`winning number: ${NUMBERS[winningBallIdx]}`);
+
+    
+
+
+
+
+
+
+
 
 
     let winningNumIdx = Math.floor(Math.random() * NUMBERS.length);
