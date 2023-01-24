@@ -35,6 +35,12 @@ const NUMBERS = [
 // degrees per slice in the wheel. Total 38 numbers, 360 degrees
 const DEGREE_PER_SLICE = 360/NUMBERS.length;
 
+// Sound effects
+const SOUNDS = {
+    ball: "sound/ball_sound_effect",
+
+}
+
 /*----- state variables -----*/
 let totalBet; // integer; store the total bet amount in the betting table
 let betOrder; // array; store the bet made by player in order.
@@ -74,6 +80,7 @@ const modalEl = document.getElementById('wheel-container');
 const wheelEl = document.getElementById('wheel');
 const ballEl = document.getElementById('ball-container');
 const winningMsgEl = document.getElementById('winning-message');
+const sound = new Audio(); // sound effect
 
 /*----- event listeners -----*/
 
@@ -234,6 +241,8 @@ function handleRepeatLastBet() {
 }
 
 function handleSpin() {
+    sound.src = "sound/ball_sound_effect.ogg";
+    sound.play();
     // Store the data from the previous game
     previousBoard = board; 
     previousBetOrder = betOrder; 
