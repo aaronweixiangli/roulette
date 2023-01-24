@@ -57,6 +57,9 @@ let previousPayout; // object; store the payout of the last game
 let previousBetOrder; // array; store the betOrder of the last game
 let previousTotalBet; // integer; store the totalBet of the last game
 let previousBalance; // integer; store the ending balance of the last game
+let winningBallIdx; // integer; store the rounded winning ball index
+let winningBallIdxUnrounded; // float; store the unrounded winning ball index
+let degreeBall; //float; store the rotation degree of the ball container
 
     
 /*----- cached elements  -----*/
@@ -138,8 +141,8 @@ function init() {
 }
 
 function handleBet(evt) {
-    // Guard. If the clicked element has no 'nums' attribute. Do nothing
-    if (!evt.target.getAttribute('nums') && !evt.target.parentElement.getAttribute('nums')) return;
+    // Guard. If the clicked element's classlist contains 'empty'. Do nothing
+    if (evt.target.classList.contains("empty")) return;
     // Guard. If the player's current balance is less than or equal to zero,
     // or current balance - chosen chip < 0.  Do nothing
     if (balance <= 0 || balance - chosenChip < 0) return;
@@ -256,8 +259,8 @@ function handleSpin() {
     wheelEl.style.transform = `rotate(-${degreeWheel}deg)`;
 
     console.log(`degreeWheel: ${degreeWheel}`);
-    // Do the same thing for degreeBall, but the ball needs to be rotated 45deg initially
-    let degreeBall = Math.floor(45 + 1080 + Math.random() * 720 + 1);
+    // Do the same thing for degreeBall
+    degreeBall = Math.floor(1080 + Math.random() * 720 + 1);
     ballEl.style.transform = `rotate(${degreeBall}deg)`;
 
 
@@ -272,17 +275,17 @@ function handleSpin() {
     console.log(`winningBall-wheel only: ${NUMBERS[wheelRoundedIdx]}`);
     // if the wheel does not move, then the index of the winning ball would be
     // the math.round [remainder of (ball rotating degree / degrees per slice) / length of NUMBERS]
-    let ballRoundedIdx = Math.round(((degreeBall - 45)/DEGREE_PER_SLICE) % NUMBERS.length);
-    let ballIdx = ((degreeBall - 45)/DEGREE_PER_SLICE) % NUMBERS.length;
-    console.log(`ballIdx: ${((degreeBall - 45)/DEGREE_PER_SLICE) % NUMBERS.length}`);
+    let ballRoundedIdx = Math.round(((degreeBall)/DEGREE_PER_SLICE) % NUMBERS.length);
+    let ballIdx = ((degreeBall)/DEGREE_PER_SLICE) % NUMBERS.length;
+    console.log(`ballIdx: ${((degreeBall)/DEGREE_PER_SLICE) % NUMBERS.length}`);
     console.log(`ball rounded index: ${ballRoundedIdx}`);
     console.log(`winningBall-ball only: ${NUMBERS[ballRoundedIdx]}`);
 
     // When the ball and the wheel both rotate, the winning index then would be 
     // the remainder of (the rounded sum of wheelIdx and ballIdx / length of numbers)
-    let winningBallIdx = Math.round(wheelIdx + ballIdx) % 38;
-    console.log(`winning Idx: ${ ((degreeWheel/DEGREE_PER_SLICE) % NUMBERS.length) + 
-    (((degreeBall - 45)/DEGREE_PER_SLICE) % NUMBERS.length)}`);
+    winningBallIdxUnrounded = (wheelIdx + ballIdx) % NUMBERS.length;
+    winningBallIdx = Math.round(wheelIdx + ballIdx) % NUMBERS.length;
+    console.log(`winning Idx: ${winningBallIdxUnrounded}`);
     console.log(`winning idx round: ${winningBallIdx}`);
     console.log(`winning number: ${NUMBERS[winningBallIdx]}`);
 
@@ -299,6 +302,17 @@ function handleSpin() {
 function handleSpinStops(evt) {
     // Guard. If event.propertyName is not transform. Do nothing.
     if (evt.propertyName !== 'transform') return;
+
+    // Adjust the ball rotation degree depending on the difference between 
+    // the rounded winningBallIdx and unrounded winningBallIdx. 
+    let diffWinningBallIdx = winningBallIdx - winningBallIdxUnrounded;
+    console.log(`diff: ${diffWinningBallIdx}`)
+
+    // if the decimal is < 0, the index has been rounded down and > 0 rounded up
+    // we want to adjust the ball rotation degree by this difference * the degree per slice
+    // so the ball will sit properly in that winning number slot instead of lying in between numbers
+    ballEl.style.transform = `rotate(${(degreeBall + diffWinningBallIdx * DEGREE_PER_SLICE)}deg)`;
+    ballEl.style.transition = 'all 0.1s';
 
     messageEl.style.visibility = 'hidden'; // hide the message element
     // if the winningNum is in our payout object, which means player has hit the right number.
@@ -348,9 +362,12 @@ function handleNewGame(){
     // Toggle or remove the 'show-modal' class from the modal class which contains the wheel
     // so the wheel is hidden
     modalEl.classList.toggle('show-modal');
-    // reset the wheel and ball rotation degree to intial values
+
+    // reset the ball container and wheel transform to be none
+    ballEl.style.transform = '';
     wheelEl.style.transform = '';
-    ballEl.style.transform = 'rotate(45deg)';
+    // reset the ball container transition to be initial values
+    ballEl.style.transition = "all 4.5s cubic-bezier(.24,.8,.58,1)";
     // changes the messageEl to be visible again
     messageEl.style.visibility = 'visible';
     // empty the winningMsgEl's text

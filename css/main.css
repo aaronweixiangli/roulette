@@ -357,6 +357,10 @@ div > .even-wider {
   justify-content: center;
 }
 
+/* @keyframes activate {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(-180deg);}
+} */
 .modal #ball-container {
   position: absolute;
   margin-left: auto;
@@ -367,7 +371,8 @@ div > .even-wider {
   width: 50vmin;
   display: flex;
   justify-content: flex-start;
-  transform: rotate(45deg);
+  rotate: 45deg;
+  /* animation: activate 2s; */
 }
 
 #ball {
@@ -386,7 +391,6 @@ div > .even-wider {
 }
 
 .show-modal > #wheel {
-  /* transform: rotate(-95deg); */
   transition: all 4.5s cubic-bezier(.24,.8,.58,1);
 }
 
@@ -398,6 +402,7 @@ div > .even-wider {
       transform: translate3d(-0.9vmin, 0.5vmin, 0) scale(1.05);
   }
 }
+
 .show-modal #ball-container #ball {
   animation: bounce 0.3s ease-out;
   animation-direction: alternate;
@@ -406,9 +411,8 @@ div > .even-wider {
 }
 
 .show-modal #ball-container {
-  height: 33.5vmin;
-  width: 33.5vmin;
-  /* transform: rotate(125.5deg); */
+  height: 33.5vmin !important;
+  width: 33.5vmin !important;
   transition: all 4.5s cubic-bezier(.24,.8,.58,1);
 }
 
