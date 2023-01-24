@@ -257,7 +257,7 @@ function handleSpin() {
     // the math.round [remainder of (wheel rotating degree / degrees per slice) / length of NUMBERS]
     console.log(`wheelIdx: ${(degreeWheel/DEGREE_PER_SLICE) % NUMBERS.length}`);
     let wheelRoundedIdx = Math.round((degreeWheel/DEGREE_PER_SLICE) % NUMBERS.length);
-    let wheelIdx = Math.round((degreeWheel/DEGREE_PER_SLICE) % NUMBERS.length);
+    let wheelIdx = (degreeWheel/DEGREE_PER_SLICE) % NUMBERS.length;
 
     console.log(`index: ${wheelRoundedIdx}`);
     console.log(`winningBall-wheel only: ${NUMBERS[wheelRoundedIdx]}`);
@@ -284,8 +284,14 @@ function handleSpin() {
     spinStatus = true; 
 
 }
-function handleSpinStops() {
-    messageEl.style.visibility = 'hidden'; // hide the message 'Place your bets'
+
+// Be careful. The handleSpinStops function will trigger twice since the transitioned event is fired twice.
+// one time for visibility and one time for transform.
+function handleSpinStops(evt) {
+    // Guard. If event.propertyName is not transform. Do nothing.
+    if (evt.propertyName !== 'transform') return;
+
+    messageEl.style.visibility = 'hidden'; // hide the message element
     // if the winningNum is in our payout object, which means player has hit the right number.
     // Update the player's balance.
     if (winningNum in payout) {
