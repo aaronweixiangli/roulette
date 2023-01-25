@@ -14,11 +14,11 @@ const DEFAULT_BALANCE = 1000;
 const CHIPS = [1, 2, 5, 10, 100];
 const CHIPS_IMG = {
     empty: '',
-    silver: "url(../img/silver_chip.jpg)", 
-    yellow: "url(../img/yellow_chip.jpg)",
-    green: "url(../img/green_chip.jpg)", 
-    blue: "url(../img/blue_chip.jpg)",
-    purple: "url(../img/purple_chip.jpg)"
+    silver: "url(./img/silver_chip.jpg)", 
+    yellow: "url(./img/yellow_chip.jpg)",
+    green: "url(./img/green_chip.jpg)", 
+    blue: "url(./img/blue_chip.jpg)",
+    purple: "url(./img/purple_chip.jpg)"
 };
 // numbers that are in red
 const RED = ['1', '3', '5', '7', '9', '12', '14', '16', '18', '19', '21', '23', '25', '27', '30', '32', '34', '36'];

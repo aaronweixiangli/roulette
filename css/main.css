@@ -216,31 +216,31 @@
   #silver-chip {
     left: 6vw;
     bottom: 30vh;
-    background-image: url(./img/silver_chip.jpg);
+    background-image: url(../img/silver_chip.jpg);
     background-size: cover;
   }
   #yellow-chip {
     left: 8vw;
     bottom: 20vh;
-    background-image: url(./img/yellow_chip.jpg);
+    background-image: url(../img/yellow_chip.jpg);
     background-size: cover;
   }
   #green-chip {
     left: 10vw;
     bottom: 8vh;
-    background-image: url(./img/green_chip.jpg);
+    background-image: url(../img/green_chip.jpg);
     background-size: cover;
   }
   #blue-chip {
     left: 14vw;
     bottom: 1vh;
-    background-image: url(./img/blue_chip.jpg);
+    background-image: url(../img/blue_chip.jpg);
     background-size: cover;
   }
   #purple-chip {
     left: 20vw;
     bottom: 0vh;
-    background-image: url(./img/purple_chip.jpg);
+    background-image: url(../img/purple_chip.jpg);
     background-size: cover;
   }
   #double-bet {
@@ -288,7 +288,7 @@ figure {
   border-radius: 50%; 
   height:6vmin; 
   width: 6vmin; 
-  background-image: url(../img/silver_chip.jpg); 
+  background-image: url(./img/silver_chip.jpg); 
   background-size: cover;
   visibility: hidden;
   margin: 0;
