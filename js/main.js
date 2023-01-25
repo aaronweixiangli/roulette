@@ -37,13 +37,13 @@ const DEGREE_PER_SLICE = 360/NUMBERS.length;
 
 // Sound effects
 const SOUNDS = {
-    ball: "../sound/ball_sound_effect.ogg",
-    bet: "../sound/bet_sound_effect.wav",
-    chip: "../sound/chip_sound_effect.wav",
-    money: "../sound/money_sound_effect.wav",
-    lose: "../sound/lose_sound_effect.wav",
-    win: "../sound/win_sound_effect.wav",
-    page: "../sound/page_turn_sound_effect.wav"
+    ball: "sound/ball_sound_effect.ogg",
+    bet: "sound/bet_sound_effect.wav",
+    chip: "sound/chip_sound_effect.wav",
+    money: "sound/money_sound_effect.wav",
+    lose: "sound/lose_sound_effect.wav",
+    win: "sound/win_sound_effect.wav",
+    page: "sound/page_turn_sound_effect.wav"
 }
 
 /*----- state variables -----*/
