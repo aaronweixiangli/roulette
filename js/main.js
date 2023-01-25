@@ -40,7 +40,10 @@ const SOUNDS = {
     ball: "sound/ball_sound_effect.ogg",
     bet: "sound/bet_sound_effect.wav",
     chip: "sound/chip_sound_effect.wav",
-    money: "sound/money_sound_effect.wav"
+    money: "sound/money_sound_effect.wav",
+    lose: "sound/lose_sound_effect.wav",
+    win: "sound/win_sound_effect.wav",
+    page: "sound/page_turn_sound_effect.wav"
 }
 
 /*----- state variables -----*/
@@ -338,6 +341,9 @@ function handleSpinStops(evt) {
     // if the winningNum is in our payout object, which means player has hit the right number.
     // Update the player's balance.
     if (winningNum in payout) {
+        // Add sound effect for winning
+        sound.src = SOUNDS.win;
+        sound.play();
         balance += payout[winningNum];
         if (RED.includes(winningNum)) {
             winningMsgEl.textContent = `RED ${winningNum}! Player wins ${payout[winningNum]}!`
@@ -348,6 +354,9 @@ function handleSpinStops(evt) {
         }
     // else, the dealer wins and update the winning message.
     } else {
+        // Add sound effect for losing
+        sound.src = SOUNDS.lose;
+        sound.play();
         if (RED.includes(winningNum)) {
             winningMsgEl.textContent = `RED ${winningNum}! Dealer wins!`
         } else if (BLACK.includes(winningNum)) {
@@ -379,6 +388,9 @@ function handleSpinStops(evt) {
 function handleNewGame(){
     // Guard. If the spinStatus is True, which means the wheel is spinning, then do nothing.
     if (spinStatus) return;
+    // Add sound effect for new page
+    sound.src = SOUNDS.page;
+    sound.play();
     // Toggle or remove the 'show-modal' class from the modal class which contains the wheel
     // so the wheel is hidden
     modalEl.classList.toggle('show-modal');
