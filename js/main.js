@@ -68,6 +68,7 @@ let degreeBall; //float; store the rotation degree of the ball container
 
     
 /*----- cached elements  -----*/
+const playBtn = document.getElementById("play");
 const boardEls = [...document.querySelectorAll('.board > div')] // all the direct child of the board
 const balanceEl = document.getElementById('balance'); // player's current balance element
 const betAmountEl = document.getElementById('bet-amount'); // player's total bet amount element
@@ -81,7 +82,7 @@ const clearBtn = document.getElementById('clear');
 const doubleBetBtn = document.getElementById('double-bet');
 const repeatLastBetBtn = document.getElementById('repeat-last-bet');
 const spinBtn = document.getElementById('spin');
-const messageEl = document.querySelector('h1');
+const messageEl = document.getElementById('title');
 const oddHistoryEls = [...document.querySelectorAll('#odd-history > div')];
 const evenHistoryEls = [...document.querySelectorAll('#even-history > div')];
 const modalEl = document.getElementById('wheel-container');
@@ -93,6 +94,14 @@ const soundOnBtn = document.getElementById('sound-on');
 const soundOffBtn = document.getElementById('sound-off');
 
 /*----- event listeners -----*/
+
+// hide the first page when play button is clicked.
+playBtn.addEventListener('click', () => {
+    document.getElementById('first-page').style.transform = 'translate(0, -100%)';
+    document.getElementById('first-page').style.transition = 'all 0.8s ease-in-out';
+    sound.src =  SOUNDS.page;
+    sound.play();
+})
 
 // update the board data if the board elements are clicked.
 document.querySelector('.board').addEventListener('click', handleBet);
