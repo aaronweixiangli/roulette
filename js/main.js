@@ -37,8 +37,10 @@ const DEGREE_PER_SLICE = 360/NUMBERS.length;
 
 // Sound effects
 const SOUNDS = {
-    ball: "sound/ball_sound_effect",
-
+    ball: "sound/ball_sound_effect.ogg",
+    bet: "sound/bet_sound_effect.wav",
+    chip: "sound/chip_sound_effect.wav",
+    money: "sound/money_sound_effect.wav"
 }
 
 /*----- state variables -----*/
@@ -146,6 +148,9 @@ function handleBet(evt) {
     // Guard. If the player's current balance is less than or equal to zero,
     // or current balance - chosen chip < 0.  Do nothing
     if (balance <= 0 || balance - chosenChip < 0) return;
+    // Add sound effect for bet
+    sound.src =  SOUNDS.bet;
+    sound.play();
     let betPosition = evt.target;
     console.log(betPosition);
     let betIdx;
@@ -172,14 +177,20 @@ function handleBet(evt) {
 }
 
 function handleChip(evt) {
-   document.querySelectorAll('.chip').forEach(function(chip) {
-    chip.classList.remove('active');
-   });
-   evt.target.classList.add('active');
-   chosenChip = parseInt(evt.target.textContent);
+    // Add sound effect for chip chosen
+    sound.src = SOUNDS.chip;
+    sound.play();
+    document.querySelectorAll('.chip').forEach(function(chip) {
+        chip.classList.remove('active');
+    });
+    evt.target.classList.add('active');
+    chosenChip = parseInt(evt.target.textContent);
 }
 
 function handleUndo() {
+    // Add sound effect for bet
+    sound.src =  SOUNDS.money;
+    sound.play();
     let [chip, removeIdx, betNumbers, betOption] = betOrder.pop();
     board[removeIdx] -= chip;
     balance += chip;
@@ -195,6 +206,9 @@ function handleUndo() {
 }
 
 function handleClear() {
+    // Add sound effect for bet
+    sound.src =  SOUNDS.money;
+    sound.play();
     while (betOrder.length > 0) {
         let [chip, removeIdx, betNumbers, betOption] = betOrder.pop();
         board[removeIdx] -= chip;
@@ -213,6 +227,9 @@ function handleClear() {
 function handleDoubleBet(){
     // Guard. Balance cannot be smaller than 0
     if (balance - totalBet < 0) return;
+    // Add sound effect for bet
+    sound.src =  SOUNDS.money;
+    sound.play();
     // double the number in board and update the balance and totalBet
     for (let i = 0; i < board.length; i++) {
         if (board[i] !== 0) {
@@ -229,14 +246,23 @@ function handleDoubleBet(){
     for (key in payout) {
         payout[key] *= 2;
     }
+    console.log(`double bet: previousBetOrder: ${previousBetOrder}`);
+    console.log(`double bet: betOrder: ${betOrder}`);
     render();
 }
 
 function handleRepeatLastBet() {
     // Guard. Balance cannot be smaller than 0
     if (balance - previousTotalBet < 0) return;
+    // Add sound effect for bet
+    sound.src =  SOUNDS.money;
+    sound.play();
     board = previousBoard.slice(); // make a copy of previous board without reference
-    betOrder = previousBetOrder.slice(); // make a copy of previous betOrder without reference
+    // make a copy of previous betOrder without reference. However, we cannot use slice()
+    // since the array we are copying contains an object or array. Need to use deep copy
+    betOrder = JSON.parse(JSON.stringify(previousBetOrder));
+    console.log(`repeat last bet: previousBetOrder: ${previousBetOrder}`);
+    console.log(`repeat last bet: betOrder: ${betOrder}`);
     payout = {...previousPayout}; // make a copy of previous payout object without reference
     totalBet = previousTotalBet;
     balance = previousBalance - previousTotalBet;
@@ -244,7 +270,8 @@ function handleRepeatLastBet() {
 }
 
 function handleSpin() {
-    sound.src = "sound/ball_sound_effect.ogg";
+    // Add sound effect for spinning ball
+    sound.src = SOUNDS.ball;
     sound.play();
     // Store the data from the previous game
     previousBoard = board; 
@@ -252,34 +279,25 @@ function handleSpin() {
     previousPayout = payout; 
     previousTotalBet = totalBet;
     previousBalance = balance;
+    console.log(`previousBetOrder: ${previousBetOrder}`);
     // Toggle or add a 'show-modal' class to the modal class which contains the wheel
     modalEl.classList.toggle('show-modal');
     // let the wheel spin 1080 degree + a random degree between 0 to 720
     let degreeWheel = Math.floor(1080 + Math.random() * 720 + 1);
     wheelEl.style.transform = `rotate(-${degreeWheel}deg)`;
 
-    console.log(`degreeWheel: ${degreeWheel}`);
     // Do the same thing for degreeBall
     degreeBall = Math.floor(1080 + Math.random() * 720 + 1);
     ballEl.style.transform = `rotate(${degreeBall}deg)`;
 
-
-    console.log(`degreeBall: ${degreeBall}`);
     // if the ball does not move, then the index of the winning ball would be 
     // the math.round [remainder of (wheel rotating degree / degrees per slice) / length of NUMBERS]
-    console.log(`wheelIdx: ${(degreeWheel/DEGREE_PER_SLICE) % NUMBERS.length}`);
-    let wheelRoundedIdx = Math.round((degreeWheel/DEGREE_PER_SLICE) % NUMBERS.length);
+    // Since the ball and wheel both are spinning, we store each unrounded index first
     let wheelIdx = (degreeWheel/DEGREE_PER_SLICE) % NUMBERS.length;
 
-    console.log(`index: ${wheelRoundedIdx}`);
-    console.log(`winningBall-wheel only: ${NUMBERS[wheelRoundedIdx]}`);
     // if the wheel does not move, then the index of the winning ball would be
     // the math.round [remainder of (ball rotating degree / degrees per slice) / length of NUMBERS]
-    let ballRoundedIdx = Math.round(((degreeBall)/DEGREE_PER_SLICE) % NUMBERS.length);
     let ballIdx = ((degreeBall)/DEGREE_PER_SLICE) % NUMBERS.length;
-    console.log(`ballIdx: ${((degreeBall)/DEGREE_PER_SLICE) % NUMBERS.length}`);
-    console.log(`ball rounded index: ${ballRoundedIdx}`);
-    console.log(`winningBall-ball only: ${NUMBERS[ballRoundedIdx]}`);
 
     // When the ball and the wheel both rotate, the winning index then would be 
     // the remainder of (the rounded sum of wheelIdx and ballIdx / length of numbers)
@@ -295,6 +313,8 @@ function handleSpin() {
     // update the spinStatus to be True
     spinStatus = true; 
 
+    // reset the ball container transition to be initial values
+    ballEl.style.transition = "all 4.5s cubic-bezier(.24,.8,.58,1)";
 }
 
 // Be careful. The handleSpinStops function will trigger twice since the transitioned event is fired twice.
@@ -366,8 +386,7 @@ function handleNewGame(){
     // reset the ball container and wheel transform to be none
     ballEl.style.transform = '';
     wheelEl.style.transform = '';
-    // reset the ball container transition to be initial values
-    ballEl.style.transition = "all 4.5s cubic-bezier(.24,.8,.58,1)";
+
     // changes the messageEl to be visible again
     messageEl.style.visibility = 'visible';
     // empty the winningMsgEl's text
