@@ -5,12 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roulette</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Fjalla+One&family=Permanent+Marker&family=Source+Sans+Pro&family=Space+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
     <script defer src="js/main.js"></script>
 </head>
 <body>
   <div id="wide-screen-require">Welcome to Aaron Roulette. <br><br> Game requires landscape screen orientation. <br><br>Please rotate/enlarge your device screen.</div>
-  <h1>Welcome to Aaron's Roulette Table</h1>
+  <h1 id="title">Welcome to Aaron's Roulette Table</h1>
   <div class="board empty">
     <!-- 11 elements that take more than 1 span -->
     <div id="zero-zero" option="single" nums="00">
@@ -515,7 +518,9 @@
   <button class="chip" id="purple-chip">100</button>
   <button id="double-bet">Double Bet</button>
   <button id="repeat-last-bet">Repeat Last Bet</button>
-  <img src="img/spin.png" id="spin" >
+  <img src="./img/spin.png" id="spin" >
+  <img src="./img/sound_on.png" id="sound-on" class="sound-on">
+  <img src="./img/sound_off.png" id="sound-off">
 
   <section class="modal" id="wheel-container">
     <h1 id="winning-message"></h1>
