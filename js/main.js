@@ -37,13 +37,13 @@ const DEGREE_PER_SLICE = 360/NUMBERS.length;
 
 // Sound effects
 const SOUNDS = {
-    ball: "sound/ball_sound_effect.ogg",
-    bet: "sound/bet_sound_effect.wav",
-    chip: "sound/chip_sound_effect.wav",
-    money: "sound/money_sound_effect.wav",
-    lose: "sound/lose_sound_effect.wav",
-    win: "sound/win_sound_effect.wav",
-    page: "sound/page_turn_sound_effect.wav"
+    ball: "../sound/ball_sound_effect.ogg",
+    bet: "../sound/bet_sound_effect.wav",
+    chip: "../sound/chip_sound_effect.wav",
+    money: "../sound/money_sound_effect.wav",
+    lose: "../sound/lose_sound_effect.wav",
+    win: "../sound/win_sound_effect.wav",
+    page: "../sound/page_turn_sound_effect.wav"
 }
 
 /*----- state variables -----*/
@@ -89,6 +89,8 @@ const wheelEl = document.getElementById('wheel');
 const ballEl = document.getElementById('ball-container');
 const winningMsgEl = document.getElementById('winning-message');
 const sound = new Audio(); // sound effect
+const soundOnBtn = document.getElementById('sound-on');
+const soundOffBtn = document.getElementById('sound-off');
 
 /*----- event listeners -----*/
 
@@ -113,8 +115,18 @@ wheelEl.addEventListener('transitionend', handleSpinStops);
 // whenever the player clicks after the transition ends
 // reset all data to its initial values, except for the chosenChip and history array
 modalEl.addEventListener('click', handleNewGame);
-
-
+// Add a class 'sound-off' to the soundOffBtn when soundOffBtn is clicked.
+soundOffBtn.addEventListener('click', () => {
+    soundOffBtn.classList.add('sound-off');
+    soundOnBtn.classList.remove('sound-on');
+})
+// Remove the 'sound-off' class from the soundOffBtn when soundOnBtn is clicked.
+soundOnBtn.addEventListener('click', () => {
+    soundOnBtn.classList.add('sound-on');
+    soundOffBtn.classList.remove('sound-off');
+    sound.src = SOUNDS.page;
+    sound.play();
+});
 
 /*----- functions -----*/
 init();
@@ -152,8 +164,10 @@ function handleBet(evt) {
     // or current balance - chosen chip < 0.  Do nothing
     if (balance <= 0 || balance - chosenChip < 0) return;
     // Add sound effect for bet
-    sound.src =  SOUNDS.bet;
-    sound.play();
+    if (!soundOffBtn.classList.contains('sound-off')) {
+        sound.src =  SOUNDS.bet;
+        sound.play();
+    }
     let betPosition = evt.target;
     console.log(betPosition);
     let betIdx;
@@ -180,9 +194,11 @@ function handleBet(evt) {
 }
 
 function handleChip(evt) {
-    // Add sound effect for chip chosen
-    sound.src = SOUNDS.chip;
-    sound.play();
+    if (!soundOffBtn.classList.contains('sound-off')){
+        // Add sound effect for chip chosen
+        sound.src = SOUNDS.chip;
+        sound.play();
+    }
     document.querySelectorAll('.chip').forEach(function(chip) {
         chip.classList.remove('active');
     });
@@ -191,9 +207,11 @@ function handleChip(evt) {
 }
 
 function handleUndo() {
-    // Add sound effect for bet
-    sound.src =  SOUNDS.money;
-    sound.play();
+    if (!soundOffBtn.classList.contains('sound-off')){
+        // Add sound effect for bet
+        sound.src =  SOUNDS.money;
+        sound.play();
+    }
     let [chip, removeIdx, betNumbers, betOption] = betOrder.pop();
     board[removeIdx] -= chip;
     balance += chip;
@@ -209,9 +227,11 @@ function handleUndo() {
 }
 
 function handleClear() {
-    // Add sound effect for bet
-    sound.src =  SOUNDS.money;
-    sound.play();
+    if (!soundOffBtn.classList.contains('sound-off')) {
+        // Add sound effect for bet
+        sound.src =  SOUNDS.money;
+        sound.play();
+    }
     while (betOrder.length > 0) {
         let [chip, removeIdx, betNumbers, betOption] = betOrder.pop();
         board[removeIdx] -= chip;
@@ -230,9 +250,11 @@ function handleClear() {
 function handleDoubleBet(){
     // Guard. Balance cannot be smaller than 0
     if (balance - totalBet < 0) return;
-    // Add sound effect for bet
-    sound.src =  SOUNDS.money;
-    sound.play();
+    if (!soundOffBtn.classList.contains('sound-off')){
+        // Add sound effect for bet
+        sound.src =  SOUNDS.money;
+        sound.play();
+    }
     // double the number in board and update the balance and totalBet
     for (let i = 0; i < board.length; i++) {
         if (board[i] !== 0) {
@@ -257,9 +279,11 @@ function handleDoubleBet(){
 function handleRepeatLastBet() {
     // Guard. Balance cannot be smaller than 0
     if (balance - previousTotalBet < 0) return;
-    // Add sound effect for bet
-    sound.src =  SOUNDS.money;
-    sound.play();
+    if (!soundOffBtn.classList.contains('sound-off')) {
+        // Add sound effect for bet
+        sound.src =  SOUNDS.money;
+        sound.play();
+    }
     board = previousBoard.slice(); // make a copy of previous board without reference
     // make a copy of previous betOrder without reference. However, we cannot use slice()
     // since the array we are copying contains an object or array. Need to use deep copy
@@ -274,8 +298,10 @@ function handleRepeatLastBet() {
 
 function handleSpin() {
     // Add sound effect for spinning ball
-    sound.src = SOUNDS.ball;
-    sound.play();
+    if (!soundOffBtn.classList.contains('sound-off')) {
+        sound.src = SOUNDS.ball;
+        sound.play();
+    }
     // Store the data from the previous game
     previousBoard = board; 
     previousBetOrder = betOrder; 
@@ -335,15 +361,17 @@ function handleSpinStops(evt) {
     // we want to adjust the ball rotation degree by this difference * the degree per slice
     // so the ball will sit properly in that winning number slot instead of lying in between numbers
     ballEl.style.transform = `rotate(${(degreeBall + diffWinningBallIdx * DEGREE_PER_SLICE)}deg)`;
-    ballEl.style.transition = 'all 0.1s';
+    ballEl.style.transition = 'all 0.5s';
 
     messageEl.style.visibility = 'hidden'; // hide the message element
     // if the winningNum is in our payout object, which means player has hit the right number.
     // Update the player's balance.
     if (winningNum in payout) {
-        // Add sound effect for winning
-        sound.src = SOUNDS.win;
-        sound.play();
+        if (!soundOffBtn.classList.contains('sound-off')) {
+            // Add sound effect for winning
+            sound.src = SOUNDS.win;
+            sound.play();
+        }
         balance += payout[winningNum];
         if (RED.includes(winningNum)) {
             winningMsgEl.textContent = `RED ${winningNum}! Player wins ${payout[winningNum]}!`
@@ -354,9 +382,11 @@ function handleSpinStops(evt) {
         }
     // else, the dealer wins and update the winning message.
     } else {
-        // Add sound effect for losing
-        sound.src = SOUNDS.lose;
-        sound.play();
+        if (!soundOffBtn.classList.contains('sound-off')) {
+            // Add sound effect for losing
+            sound.src = SOUNDS.lose;
+            sound.play();
+        }
         if (RED.includes(winningNum)) {
             winningMsgEl.textContent = `RED ${winningNum}! Dealer wins!`
         } else if (BLACK.includes(winningNum)) {
@@ -388,9 +418,11 @@ function handleSpinStops(evt) {
 function handleNewGame(){
     // Guard. If the spinStatus is True, which means the wheel is spinning, then do nothing.
     if (spinStatus) return;
-    // Add sound effect for new page
-    sound.src = SOUNDS.page;
-    sound.play();
+    if (!soundOffBtn.classList.contains('sound-off')) {
+        // Add sound effect for new page
+        sound.src = SOUNDS.page;
+        sound.play();
+    }
     // Toggle or remove the 'show-modal' class from the modal class which contains the wheel
     // so the wheel is hidden
     modalEl.classList.toggle('show-modal');
@@ -521,7 +553,7 @@ function renderHistory() {
         if (oddHistory[i] !== null) {
             oddHistoryEls[i].textContent = `${oddHistory[i]}`;
             if (RED.includes(oddHistory[i])) {
-                oddHistoryEls[i].style.color = 'red';
+                oddHistoryEls[i].style.color = 'darkred';
             } else if (BLACK.includes(oddHistory[i])) {
                 oddHistoryEls[i].style.color = 'black';
             } else {
@@ -531,7 +563,7 @@ function renderHistory() {
         if (evenHistory[i] !== null) {
             evenHistoryEls[i].textContent = `${evenHistory[i]}`;
             if (RED.includes(evenHistory[i])) {
-                evenHistoryEls[i].style.color = 'red';
+                evenHistoryEls[i].style.color = 'darkred';
             } else if (BLACK.includes(evenHistory[i])) {
                 evenHistoryEls[i].style.color = 'black';
             } else {
