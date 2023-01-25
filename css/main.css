@@ -8,19 +8,100 @@
 
 body {
   height: 100vh;
+  width: 100vw;
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgba(17,153,59);
   background: radial-gradient(circle, rgba(17,153,59,1) 0%, rgba(4,40,33,1) 100%);
 }
+
+/* first page before game starts */
+#first-page {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  z-index: 3;
+  background-color: white;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  /* background: rgba(17,153,59);
+  background: radial-gradient(circle, rgba(17,153,59,1) 0%, rgba(4,40,33,1) 100%); */
+  background-image: url(../img/first_page_bg.jpg);
+  background-size: cover;
+}
+
+section > h1 {
+  color: darkgoldenrod;
+  margin-top: 0.5vmin;
+  margin-bottom: 0;
+  font-size: 12vmin;
+  font-family: 'Yellowtail', cursive;
+  -webkit-text-stroke: 0.1vmin black;
+  letter-spacing: 2vmin;
+}
+
+section > h2 {
+  color: gold;
+  /* color: gold; */
+  /* color: rgb(246,222,78); */
+  margin-top: 0.5vmin;
+  font-size: 12vmin;
+  margin-bottom: 2vmin;
+  font-family: 'Permanent Marker', cursive;
+  -webkit-text-stroke: 0.1vmin black;
+  letter-spacing: 0.3vmin;
+}
+
+section > p {
+  font-size: 3vmin;
+  margin-top: 6vmin;
+  font-family: 'Courgette', cursive;
+  letter-spacing: 0.3vmin;
+  color: whitesmoke;
+}
+
+#roulette-img {
+  height: 33vmin;
+  width: 30vmin;
+  margin-bottom: 5vmin;
+}
+
+#play {
+  height: 15vmin;
+  width: 30vmin;
+  border-radius: 20%;
+  background-image: url(../img/play_background.png);
+  background-size: cover;
+  color: white;
+  font-size: 7vmin;
+  font-family: 'Permanent Marker', cursive;
+  letter-spacing: 0.4vmin;
+  -webkit-text-stroke: 0.4vmin darkgreen;
+}
+
+#play:hover {
+  /* color: rgba(250, 72, 72, 0.979); */
+  color: darkgreen;
+  -webkit-text-stroke: 0.4vmin white;
+}
+
+
+
 
 #title {
   position: absolute;
   top: 1vmin;
-  font-size: 7vmin;
+  font-size: 8vmin;
   font-family: 'Courgette', cursive;
   color: white;
   -webkit-text-stroke: 0.1vmin black;
+  letter-spacing: 1.5vmin;
+  font-weight: bold; 
 }
 
 .board {
@@ -486,7 +567,7 @@ transition: all 4.5s cubic-bezier(.24,.8,.58,1);
 .modal > h1 {
 position: absolute;
 margin-left: auto;
-top: 0vh;
+top: 2vh;
 font-size: 4vmin;
 letter-spacing: 0.3vmin;
 color: orange;
