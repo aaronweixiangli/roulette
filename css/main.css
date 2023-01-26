@@ -222,7 +222,7 @@ div div div {
   height: 38vh;
   width: 5vw;
   position: absolute;
-  top: 19vh;
+  top: 16vh;
   right: 8vw;
   border: 0.1vmin solid white;
   display: grid;
@@ -230,7 +230,6 @@ div div div {
   font-weight: bold;
   font-size: 2.5vmin;
   font-family: 'Space Mono', monospace;
-  /* background-color: rgba(255, 255, 255, 0.8); */
   background: rgb(88,110,84);
   background: linear-gradient(90deg, rgba(88,110,84,1) 0%, rgba(77,148,97,0.7315301120448179) 0%);
 }
@@ -269,46 +268,44 @@ div div div {
 
 #double-bet {
   position: absolute;
-  right: 14.5vw;
-  bottom: 10vh;
-  height: 12vmin;
-  width: 14vmin;
-  background-color: transparent;
-  background-image: url(../img/gold_background.png);
-  background-size: cover;
-  border-radius: 40%;
-  color: black;
-  font-size: 2.5vmin;
-  font-family: 'Permanent Marker', cursive;
-  opacity: 0.6;
+  right: 12vw;
+  bottom: 28vh;
+  height: 13vmin;
+  width: 20vmin;
+  /* background-color: rgba(54, 52, 52, 0.308); */
+  background-color: rgba(0, 0, 0, 0.712);
+  border-radius: 30%;
+  padding: 1.6vmin 0.8vmin 0.6vmin 1.2vmin;
+  border-top: 0.8vmin ridge white;
+  border-left: 0.8vmin ridge white;
+  border-right: 0.8vmin groove white;
+  border-bottom: 0.8vmin groove white;
 }
 
 #repeat-last-bet {
   position: absolute;
-  right: 14.5vw;
-  bottom: 25vh;
-  height: 12vmin;
-  width: 14vmin;
-  background-color: transparent;
-  background-image: url(../img/gold_background.png);
-  background-size: cover;
-  border-radius: 40%;
-  color: black;
-  font-size: 2.5vmin;
-  font-family: 'Permanent Marker', cursive;
-  opacity: 0.6;
+  right: 0.5vw;
+  bottom: 28vh;
+  height: 13vmin;
+  width: 20vmin;
+  background-color: rgba(0, 0, 0, 0.712);
+  border-top: 0.8vmin ridge white;
+  border-left: 0.8vmin ridge white;
+  border-right: 0.8vmin groove white;
+  border-bottom: 0.8vmin groove white;
+  padding: 1.6vmin 1vmin 0.8vmin 1.6vmin;
+  border-radius: 30%;
 }
 
 #clear:hover, #undo:hover, #double-bet:hover, #repeat-last-bet:hover {
   background-color: rgb(28, 75, 34);
-  opacity: 1;
 }
 
 #spin {
   height: 24vmin;
   width: 24vmin;
   position: absolute;
-  right: 1.5vw;
+  right: 5vw;
   bottom: 3vh;
   background-color: transparent;
 
