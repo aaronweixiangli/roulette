@@ -90,9 +90,6 @@ section > p {
   -webkit-text-stroke: 0.4vmin white;
 }
 
-
-
-
 #title {
   position: absolute;
   top: 1vmin;
@@ -141,47 +138,61 @@ section > p {
   grid-area: 10 / 4 / span 1 / span 7;
   border: 1px solid black;
   border-radius: 50%;
+  border: none;
 }
 #thirteen-to-twentyfour {
   grid-area: 10 / 12 / span 1 / span 7;
   border: 1px solid black;
   border-radius: 50%;
+  border: none;
 }
 #twentyfive-to-thirtysix {
   grid-area: 10 / 20 / span 1 / span 7;
   border: 1px solid black;
   border-radius: 50%;
+  border: none;
 }
 #one-to-eighteen {
   grid-area: 12 / 4 / span 1 / span 3;
   border: 1px solid black;
   border-radius: 50%;
+  border: none;
 }
 #EVEN {
   grid-area: 12 / 8 / span 1 / span 3;
   border: 1px solid black;
   border-radius: 50%;
+  border: none;
 }
 #RED {
   grid-area: 12 / 12 / span 1 / span 3;
   border: 1px solid black;
   border-radius: 50%;
+  border: none;
 }
 #BLACK {
   grid-area: 12 / 16 / span 1 / span 3;
   border: 1px solid black;
   border-radius: 50%;
+  border: none;
 }
 #ODD {
   grid-area: 12 / 20 / span 1 / span 3;
   border: 1px solid black;
   border-radius: 50%;
+  border: none;
 }
 #nineteen-to-thirtysix {
   grid-area: 12 / 24 / span 1 / span 3;
   border: 1px solid black;
   border-radius: 50%;
+  border: none;
 }
+
+.no-border {
+  border: none !important;
+}
+
 .span-row {
   grid-row: span 3;
 }
@@ -409,6 +420,26 @@ div div div {
   background: radial-gradient(circle, rgba(160,199,149,1) 0%, rgba(79,133,68,1) 100%);
 }
 
+#buy-chip {
+  position: absolute;
+  left: 3vw;
+  top: 3vh;
+  height: 10vmin;
+  width: 20vmin;
+  border-radius: 20%;
+  border: 0.5vmin solid darkgrey;
+  font-size: 4vmin;
+  font-family: 'Fjalla One', sans-serif;
+  color: white;
+  -webkit-text-stroke: 0.1vmin darkgreen;
+  background-color: transparent;
+  opacity: 0.85;
+}
+
+#buy-chip:hover {
+  background-color: darkslategrey;
+  opacity: 1;
+}
 
 #balance {
   height: 15vmin;
@@ -572,6 +603,88 @@ font-size: 4vmin;
 letter-spacing: 0.3vmin;
 color: orange;
 font-family: 'Fjalla One', sans-serif;
+}
+
+.buy-chip-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0; 
+  visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.buy-chip-page > h1 {
+  position: absolute;
+  top: 2vh;
+  font-size: 15vmin;
+  color: orange;
+  font-family:'Times New Roman', Times, serif;
+  letter-spacing: normal;
+}
+
+.buy-chip-page > div {
+  margin-top: 50vmin;
+  height: 100vh;
+  width: 70vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 15vmin;
+}
+
+.buy-chips {
+  border-radius: 30%;
+  font-size: 12vmin;
+  border: 1vmin solid white;
+  -webkit-text-stroke: 0.4vmin darkgrey;
+}
+
+.buy-chips:hover {
+  color: white;
+  -webkit-text-stroke: 0.4vmin darkgreen;
+}
+#buy100 {
+  background: rgb(182,182,182);
+  background: radial-gradient(circle, rgba(182,182,182,1) 0%, rgba(64,64,64,1) 100%);
+}
+
+#buy200 {
+  background: rgb(248,249,107);
+  background: radial-gradient(circle, rgba(248,249,107,1) 0%, rgba(117,129,20,1) 100%);
+}
+
+#buy500 {
+  background: rgb(141,242,139);
+  background: radial-gradient(circle, rgba(141,242,139,1) 0%, rgba(26,74,8,1) 100%);
+}
+
+#buy1000 {
+  background: rgb(107,196,249);
+  background: radial-gradient(circle, rgba(107,196,249,1) 0%, rgba(20,77,129,1) 100%);
+}
+
+#buy2000 {
+  background: rgb(206,107,249);
+  background: radial-gradient(circle, rgba(206,107,249,1) 0%, rgba(113,51,134,1) 100%);
+}
+
+#buy5000 {
+  background: rgb(249,107,107);
+  background: radial-gradient(circle, rgba(249,107,107,1) 0%, rgba(129,20,20,1) 100%);
+}
+
+.show-buy-chip-page {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 1s;
+  z-index: 2;
 }
 
 #wide-screen-require {
