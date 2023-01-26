@@ -66,9 +66,9 @@ let previousPayout; // object; store the payout of the last game
 let previousBetOrder; // array; store the betOrder of the last game
 let previousTotalBet; // integer; store the totalBet of the last game
 let previousBalance; // integer; store the ending balance of the last game
-let winningBallIdx; // integer; store the rounded winning ball index
-let winningBallIdxUnrounded; // float; store the unrounded winning ball index
 let degreeBall; //float; store the rotation degree of the ball container
+let wheelIdx; //float; store the corresponding index for only wheel spinning
+let ballIdx; // float; store the corresponding index for only ball spinning
 
     
 /*----- cached elements  -----*/
@@ -322,7 +322,6 @@ function handleSpin() {
     // let the wheel spin 1080 degree + a random degree between 0 to 720
     let degreeWheel = Math.floor(1080 + Math.random() * 720 + 1);
     wheelEl.style.transform = `rotate(-${degreeWheel}deg)`;
-
     // Do the same thing for degreeBall
     degreeBall = Math.floor(1080 + Math.random() * 720 + 1);
     ballEl.style.transform = `rotate(${degreeBall}deg)`;
@@ -330,16 +329,18 @@ function handleSpin() {
     // if the ball does not move, then the index of the winning ball would be 
     // the math.round [remainder of (wheel rotating degree / degrees per slice) / length of NUMBERS]
     // Since the ball and wheel both are spinning, we store each unrounded index first
-    let wheelIdx = (degreeWheel/DEGREE_PER_SLICE) % NUMBERS.length;
-
+    wheelIdx = (degreeWheel/DEGREE_PER_SLICE) % NUMBERS.length;
+    
     // if the wheel does not move, then the index of the winning ball would be
     // the math.round [remainder of (ball rotating degree / degrees per slice) / length of NUMBERS]
-    let ballIdx = ((degreeBall)/DEGREE_PER_SLICE) % NUMBERS.length;
+    ballIdx = ((degreeBall)/DEGREE_PER_SLICE) % NUMBERS.length;
+    console.log(`wheelIdx: ${wheelIdx}`);
+    console.log(`ballIdx: ${ballIdx}`);
 
     // When the ball and the wheel both rotate, the winning index then would be 
     // the remainder of (the rounded sum of wheelIdx and ballIdx / length of numbers)
-    winningBallIdxUnrounded = (wheelIdx + ballIdx) % NUMBERS.length;
-    winningBallIdx = Math.round(wheelIdx + ballIdx) % NUMBERS.length;
+    let winningBallIdxUnrounded = (wheelIdx + ballIdx) % NUMBERS.length;
+    let winningBallIdx = Math.round(wheelIdx + ballIdx) % NUMBERS.length;
     console.log(`winning Idx: ${winningBallIdxUnrounded}`);
     console.log(`winning idx round: ${winningBallIdx}`);
     console.log(`winning number: ${NUMBERS[winningBallIdx]}`);
@@ -361,8 +362,8 @@ function handleSpinStops(evt) {
     if (evt.propertyName !== 'transform') return;
 
     // Adjust the ball rotation degree depending on the difference between 
-    // the rounded winningBallIdx and unrounded winningBallIdx. 
-    let diffWinningBallIdx = winningBallIdx - winningBallIdxUnrounded;
+    // the rounded sum of ballIdx and wheelIdx and unrounded sum of ballIdx and wheelIdx . 
+    let diffWinningBallIdx = Math.round(ballIdx + wheelIdx) - (ballIdx + wheelIdx);
     console.log(`diff: ${diffWinningBallIdx}`)
 
     // if the decimal is < 0, the index has been rounded down and > 0 rounded up
@@ -373,54 +374,58 @@ function handleSpinStops(evt) {
 
     messageEl.style.visibility = 'hidden'; // hide the message element
     // if the winningNum is in our payout object, which means player has hit the right number.
-    // Update the player's balance.
-    if (winningNum in payout) {
-        if (!soundOffBtn.classList.contains('sound-off')) {
-            // Add sound effect for winning
-            sound.src = SOUNDS.win;
-            sound.play();
-        }
-        balance += payout[winningNum];
-        if (RED.includes(winningNum)) {
-            winningMsgEl.textContent = `RED ${winningNum}! Player wins ${payout[winningNum]}!`
-        } else if (BLACK.includes(winningNum)) {
-            winningMsgEl.textContent = `BLACK ${winningNum}! Player wins ${payout[winningNum]}!`
+
+    // After 1.3 seconds, do the following:
+    setTimeout(() => {
+        // Update the player's balance.
+        if (winningNum in payout) {
+            if (!soundOffBtn.classList.contains('sound-off')) {
+                // Add sound effect for winning
+                sound.src = SOUNDS.win;
+                sound.play();
+            }
+            balance += payout[winningNum];
+            if (RED.includes(winningNum)) {
+                winningMsgEl.textContent = `RED ${winningNum}! Player wins ${payout[winningNum]}!`
+            } else if (BLACK.includes(winningNum)) {
+                winningMsgEl.textContent = `BLACK ${winningNum}! Player wins ${payout[winningNum]}!`
+            } else {
+                winningMsgEl.textContent = `WHITE ${winningNum}! Player wins ${payout[winningNum]}!`
+            }
+        // else, the dealer wins and update the winning message.
         } else {
-            winningMsgEl.textContent = `WHITE ${winningNum}! Player wins ${payout[winningNum]}!`
+            if (!soundOffBtn.classList.contains('sound-off')) {
+                // Add sound effect for losing
+                sound.src = SOUNDS.lose;
+                sound.play();
+            }
+            if (RED.includes(winningNum)) {
+                winningMsgEl.textContent = `RED ${winningNum}! Dealer wins!`
+            } else if (BLACK.includes(winningNum)) {
+                winningMsgEl.textContent = `BLACK ${winningNum}! Dealer wins!`
+            } else {
+                winningMsgEl.textContent = `WHITE ${winningNum}! Dealer wins!`
+            }
         }
-    // else, the dealer wins and update the winning message.
-    } else {
-        if (!soundOffBtn.classList.contains('sound-off')) {
-            // Add sound effect for losing
-            sound.src = SOUNDS.lose;
-            sound.play();
-        }
-        if (RED.includes(winningNum)) {
-            winningMsgEl.textContent = `RED ${winningNum}! Dealer wins!`
-        } else if (BLACK.includes(winningNum)) {
-            winningMsgEl.textContent = `BLACK ${winningNum}! Dealer wins!`
+        // If the winning number is odd, then push it to the oddHistory array.
+        // Also push null to the evenHistory array so they have the same array length.
+        // else, do the opposite.
+        if (parseInt(winningNum) % 2 === 1){
+            oddHistory.push(winningNum);
+            evenHistory.push(null);
         } else {
-            winningMsgEl.textContent = `WHITE ${winningNum}! Dealer wins!`
+            evenHistory.push(winningNum);
+            oddHistory.push(null);
         }
-    }
-    // If the winning number is odd, then push it to the oddHistory array.
-    // Also push null to the evenHistory array so they have the same array length.
-    // else, do the opposite.
-    if (parseInt(winningNum) % 2 === 1){
-        oddHistory.push(winningNum);
-        evenHistory.push(null);
-    } else {
-        evenHistory.push(winningNum);
-        oddHistory.push(null);
-    }
-    // We are only storing numbers for the past 10 games.
-    // so whenever the length of the oddHistory array goes above 10, remove the left element for both odd and even history.
-    if (oddHistory.length > 10) {
-        oddHistory.shift();
-        evenHistory.shift();
-    }
-    // Once transition is ended. Update the spinStatus to be False.
-    spinStatus = false;
+        // We are only storing numbers for the past 10 games.
+        // so whenever the length of the oddHistory array goes above 10, remove the left element for both odd and even history.
+        if (oddHistory.length > 10) {
+            oddHistory.shift();
+            evenHistory.shift();
+        }
+        // Once transition is ended. Update the spinStatus to be False.
+        spinStatus = false;
+    }, 1300)
 }
 
 function handleNewGame(){
@@ -513,8 +518,10 @@ function handleBuyChipAmount(evt) {
             sound.src = SOUNDS.chip;
             sound.play();
         }
+        // update both the current balance and previous balance
         let buyChipIdx = buyChipEls.indexOf(evt.target);
         balance += BUY_CHIP_AMOUNTS[buyChipIdx];
+        previousBalance += BUY_CHIP_AMOUNTS[buyChipIdx];
         // toggle/remove 'show-buy-chip-page' class from 'buy-chip-page'
         document.querySelector('.buy-chip-page').classList.toggle('show-buy-chip-page');
         // show the message element
