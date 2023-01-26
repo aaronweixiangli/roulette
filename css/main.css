@@ -299,6 +299,7 @@ div div div {
 
 #clear:hover, #undo:hover, #double-bet:hover, #repeat-last-bet:hover {
   background-color: rgb(28, 75, 34);
+  opacity: 1;
 }
 
 #spin {
