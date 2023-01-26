@@ -311,11 +311,12 @@ div div div {
   right: 1.5vw;
   bottom: 3vh;
   background-color: transparent;
+
 }
 
 #spin:hover {
-  height: 26vmin;
-  width: 26vmin;
+  height: 25vmin;
+  width: 25vmin;
   transition: 0.2s ease-in-out;
 }
 
@@ -333,7 +334,7 @@ div div div {
 .active {
   height: 21vmin;
   width: 21vmin;
-  font-size: 5vmin;
+  font-size: 6vmin;
   transition: 0.1s linear;
   z-index: 1;
 }
@@ -342,7 +343,7 @@ div div div {
   height: 19vmin;
   width: 19vmin;
   font-size: 5vmin;
-  transition: 0.2s ease-in-out;
+  transition: 0.1s ease-in-out;
   z-index: 1;
 }
 
@@ -413,7 +414,7 @@ div div div {
   width: 20vmin;
   border-radius: 20%;
   border: 0.5vmin solid darkgrey;
-  font-size: 4vmin;
+  font-size: 3.5vmin;
   font-family: 'Fjalla One', sans-serif;
   color: white;
   -webkit-text-stroke: 0.1vmin darkgreen;
