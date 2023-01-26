@@ -46,6 +46,10 @@ const SOUNDS = {
     page: "sound/page_turn_sound_effect.wav"
 }
 
+//Buy chip amounts
+const BUY_CHIP_AMOUNTS = [100, 200, 500, 1000, 2000, 5000];
+
+
 /*----- state variables -----*/
 let totalBet; // integer; store the total bet amount in the betting table
 let betOrder; // array; store the bet made by player in order.
@@ -92,16 +96,14 @@ const winningMsgEl = document.getElementById('winning-message');
 const sound = new Audio(); // sound effect
 const soundOnBtn = document.getElementById('sound-on');
 const soundOffBtn = document.getElementById('sound-off');
+const buyChipBtn = document.getElementById('buy-chip');
+const buyChipEls = [...document.querySelectorAll('.buy-chips')];
 
 /*----- event listeners -----*/
 
 // hide the first page when play button is clicked.
-playBtn.addEventListener('click', () => {
-    document.getElementById('first-page').style.transform = 'translate(0, -100%)';
-    document.getElementById('first-page').style.transition = 'all 0.8s ease-in-out';
-    sound.src =  SOUNDS.page;
-    sound.play();
-})
+playBtn.addEventListener('click', handlePlay);
+
 
 // update the board data if the board elements are clicked.
 document.querySelector('.board').addEventListener('click', handleBet);
@@ -125,17 +127,14 @@ wheelEl.addEventListener('transitionend', handleSpinStops);
 // reset all data to its initial values, except for the chosenChip and history array
 modalEl.addEventListener('click', handleNewGame);
 // Add a class 'sound-off' to the soundOffBtn when soundOffBtn is clicked.
-soundOffBtn.addEventListener('click', () => {
-    soundOffBtn.classList.add('sound-off');
-    soundOnBtn.classList.remove('sound-on');
-})
+soundOffBtn.addEventListener('click', handleSoundOff);
 // Remove the 'sound-off' class from the soundOffBtn when soundOnBtn is clicked.
-soundOnBtn.addEventListener('click', () => {
-    soundOnBtn.classList.add('sound-on');
-    soundOffBtn.classList.remove('sound-off');
-    sound.src = SOUNDS.page;
-    sound.play();
-});
+soundOnBtn.addEventListener('click', handleSoundOn);
+// Toggle / add the class 'show-buy-chip-page' to the 'buy-chip-page' class. Make it visible now
+buyChipBtn.addEventListener('click', handleBuyChip);
+// Update the balance and toggle/remove the class 'show-buy-chip-page' from 'buy-chip-page' class when the buy chip 
+document.getElementById('buy-chip-container').addEventListener('click', handleBuyChipAmount);
+
 
 /*----- functions -----*/
 init();
@@ -467,7 +466,49 @@ function handleNewGame(){
     render();
 }
 
+function handleSoundOff() {
+    soundOffBtn.classList.add('sound-off');
+    soundOnBtn.classList.remove('sound-on');
+}
 
+function handleSoundOn() {
+    soundOnBtn.classList.add('sound-on');
+    soundOffBtn.classList.remove('sound-off');
+    sound.src = SOUNDS.page;
+    sound.play();
+}
+
+function handlePlay() {
+    document.getElementById('first-page').style.transform = 'translate(0, -100%)';
+    document.getElementById('first-page').style.transition = 'all 0.8s ease-in-out';
+    sound.src =  SOUNDS.page;
+    sound.play();
+}
+
+function handleBuyChip() {
+    if (!soundOffBtn.classList.contains('sound-off')){
+        // Add sound effect for chip chosen
+        sound.src = SOUNDS.page;
+        sound.play();
+    }
+    document.querySelector('.buy-chip-page').classList.toggle('show-buy-chip-page')
+    messageEl.style.visibility = 'hidden'; // hide the message element
+};
+
+function handleBuyChipAmount(evt) {
+    if (!soundOffBtn.classList.contains('sound-off')){
+        // Add sound effect for chip chosen
+        sound.src = SOUNDS.chip;
+        sound.play();
+    }
+    let buyChipIdx = buyChipEls.indexOf(evt.target);
+    balance += BUY_CHIP_AMOUNTS[buyChipIdx];
+    // toggle/remove 'show-buy-chip-page' class from 'buy-chip-page'
+    document.querySelector('.buy-chip-page').classList.toggle('show-buy-chip-page');
+    // show the message element
+    messageEl.style.visibility = 'visible'; // hide the message element
+    render();
+}
 
 function render() {
     renderBoard();
