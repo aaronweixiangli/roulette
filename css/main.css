@@ -154,33 +154,22 @@ section > p {
 }
 #one-to-eighteen {
   grid-area: 12 / 4 / span 1 / span 3;
-  border: 1px solid black;
-  border-radius: 50%;
-  border: none;
 }
 #EVEN {
   grid-area: 12 / 8 / span 1 / span 3;
-  border: 1px solid black;
-  border-radius: 50%;
-  border: none;
 }
 #RED {
   grid-area: 12 / 12 / span 1 / span 3;
-  border: 1px solid black;
-  border-radius: 50%;
-  border: none;
+  clip-path: polygon(50% 10%, 95% 50%, 50% 90%, 5% 50%);
+  background: darkred;
 }
 #BLACK {
   grid-area: 12 / 16 / span 1 / span 3;
-  border: 1px solid black;
-  border-radius: 50%;
-  border: none;
+  clip-path: polygon(50% 10%, 95% 50%, 50% 90%, 5% 50%);
+  background: black;
 }
 #ODD {
   grid-area: 12 / 20 / span 1 / span 3;
-  border: 1px solid black;
-  border-radius: 50%;
-  border: none;
 }
 #nineteen-to-thirtysix {
   grid-area: 12 / 24 / span 1 / span 3;
@@ -357,7 +346,6 @@ div div div {
   z-index: 1;
 }
 
-
 #silver-chip {
   left: 3vw;
   bottom: 37vh;
@@ -399,7 +387,6 @@ div div div {
   padding: 0.5vmin;
   border-radius: 30%;
 }
-
 #sound-off {
   position: absolute;
   top: 5vh;
@@ -410,11 +397,9 @@ div div div {
   padding: 0.5vmin 0.8vmin 0.5vmin 0.5vmin;
   border-radius: 30%;
 }
-
 .sound-on, .sound-off {
   scale: 1.2;
 }
-
 #sound-on:hover, #sound-off:hover {
   background: rgb(160,199,149);
   background: radial-gradient(circle, rgba(160,199,149,1) 0%, rgba(79,133,68,1) 100%);
@@ -435,7 +420,6 @@ div div div {
   background-color: transparent;
   opacity: 0.85;
 }
-
 #buy-chip:hover {
   background-color: darkslategrey;
   opacity: 1;
@@ -452,7 +436,6 @@ div div div {
   font-family: 'Fjalla One', sans-serif;
   -webkit-text-stroke: 0.1vmin lightgreen;
 }
-
 #bet-amount {
   height: 8vmin;
   width: 20vmin;
@@ -491,7 +474,6 @@ width: 5vmin;
 z-index: 1;
 pointer-events: auto !important;
 }
-
 div > .taller {
 position: absolute;
 height: 6vmin;
@@ -499,7 +481,6 @@ width: 4vmin;
 z-index: 1;
 pointer-events: auto !important;
 }
-
 div > .wider {
 position: absolute;
 height: 4vmin;
@@ -507,7 +488,6 @@ width: 5vmin;
 z-index: 1;
 pointer-events: auto !important;
 }
-
 div > .even-wider {
 position: absolute;
 height: 4vmin;
@@ -530,7 +510,6 @@ align-items: center;
 justify-content: center;
 /* transition: visibility 0s opacity 0.25s transform 0.25s; */
 }
-
 .modal > #wheel {
 height: 80vmin;
 width: 80vmin;
@@ -540,7 +519,6 @@ display: flex;
 align-items: center;
 justify-content: center;
 }
-
 .modal #ball-container {
 position: absolute;
 margin-left: auto;
@@ -553,7 +531,6 @@ display: flex;
 justify-content: flex-start;
 rotate: 45deg;
 }
-
 #ball {
 height: 2.5vmin;
 width: 2.5vmin;
@@ -561,14 +538,12 @@ background-image: url(../img/ball.png);
 background-size: cover;
 border-radius: 50%;
 }
-
 .show-modal {
 opacity: 1;
 visibility: visible;
 transition: opacity 1s;
 z-index: 2;
 }
-
 .show-modal > #wheel {
 transition: all 4.5s cubic-bezier(.24,.8,.58,1);
 }
@@ -581,14 +556,12 @@ to {
     transform: translate3d(-0.9vmin, 0.5vmin, 0) scale(1.05);
 }
 }
-
 .show-modal #ball-container #ball {
 animation: bounce 0.25s ease-out;
 animation-direction: alternate;
 animation-delay: 3s;
 animation-iteration-count: 5;
 }
-
 .show-modal #ball-container {
 height: 33.5vmin !important;
 width: 33.5vmin !important;
