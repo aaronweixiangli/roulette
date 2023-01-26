@@ -79,13 +79,13 @@ section > p {
   background-size: cover;
   color: white;
   font-size: 7vmin;
+  text-align: center;
   font-family: 'Permanent Marker', cursive;
   letter-spacing: 0.4vmin;
   -webkit-text-stroke: 0.4vmin darkgreen;
 }
 
 #play:hover {
-  /* color: rgba(250, 72, 72, 0.979); */
   color: darkgreen;
   -webkit-text-stroke: 0.4vmin white;
 }
@@ -597,25 +597,25 @@ font-family: 'Fjalla One', sans-serif;
 .buy-chip-page > h1 {
   position: absolute;
   top: 2vh;
-  font-size: 15vmin;
+  font-size: 13vmin;
   color: orange;
   font-family:'Times New Roman', Times, serif;
   letter-spacing: normal;
 }
 
 .buy-chip-page > div {
-  margin-top: 50vmin;
-  height: 100vh;
+  height: 60vh;
   width: 70vw;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  gap: 15vmin;
+  grid-template-rows: 1fr 1fr;
+  gap: 10vmin;
 }
 
 .buy-chips {
   border-radius: 30%;
   font-size: 12vmin;
+  color: black;
   border: 1vmin solid white;
   -webkit-text-stroke: 0.4vmin darkgrey;
 }

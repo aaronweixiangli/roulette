@@ -133,7 +133,7 @@ soundOnBtn.addEventListener('click', handleSoundOn);
 // Toggle / add the class 'show-buy-chip-page' to the 'buy-chip-page' class. Make it visible now
 buyChipBtn.addEventListener('click', handleBuyChip);
 // Update the balance and toggle/remove the class 'show-buy-chip-page' from 'buy-chip-page' class when the buy chip 
-document.getElementById('buy-chip-container').addEventListener('click', handleBuyChipAmount);
+document.querySelector('.buy-chip-page').addEventListener('click', handleBuyChipAmount);
 
 
 /*----- functions -----*/
@@ -496,18 +496,32 @@ function handleBuyChip() {
 };
 
 function handleBuyChipAmount(evt) {
-    if (!soundOffBtn.classList.contains('sound-off')){
-        // Add sound effect for chip chosen
-        sound.src = SOUNDS.chip;
-        sound.play();
+    // If not clicking the buy-chip elements, toggle/remove 'show-buy-chip-page' class from 'buy-chip-page'
+    // Do nothing to current balance
+    if (!evt.target.classList.contains('buy-chips')){
+        if (!soundOffBtn.classList.contains('sound-off')){
+            // Add sound effect for changing page
+            sound.src = SOUNDS.page;
+            sound.play();
+        }
+        document.querySelector('.buy-chip-page').classList.toggle('show-buy-chip-page');
+        // show the message element
+        messageEl.style.visibility = 'visible';
+    } else {
+        if (!soundOffBtn.classList.contains('sound-off')){
+            // Add sound effect for chip chosen
+            sound.src = SOUNDS.chip;
+            sound.play();
+        }
+        let buyChipIdx = buyChipEls.indexOf(evt.target);
+        balance += BUY_CHIP_AMOUNTS[buyChipIdx];
+        // toggle/remove 'show-buy-chip-page' class from 'buy-chip-page'
+        document.querySelector('.buy-chip-page').classList.toggle('show-buy-chip-page');
+        // show the message element
+        messageEl.style.visibility = 'visible';
+        render();
     }
-    let buyChipIdx = buyChipEls.indexOf(evt.target);
-    balance += BUY_CHIP_AMOUNTS[buyChipIdx];
-    // toggle/remove 'show-buy-chip-page' class from 'buy-chip-page'
-    document.querySelector('.buy-chip-page').classList.toggle('show-buy-chip-page');
-    // show the message element
-    messageEl.style.visibility = 'visible'; // hide the message element
-    render();
+
 }
 
 function render() {
