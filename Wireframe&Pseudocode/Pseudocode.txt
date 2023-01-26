@@ -1,0 +1,112 @@
+1) Define required constants
+	1.1) Define OPTIONS [Object] : bet options key like single(straight up), two(split), three(corner bet) with value payouts. For example, {single: 36, two: 18 , three: 12, ....}
+	1.2) Define DEFAULT_BALANCE [Integer] : the default balance (starting balance).
+	1.3) Define CHIPS [Array] : the chosen chip.
+	1.4) Define CHIP_IMG [Object] : the chip images.
+	1.5) Define RED [Array] : numbers that are red.
+	1.6) Define BLACK [Array] : numbers that are black.
+	1.7) Define NUMBERS [Array] : all numbers.
+	1.8) Define DEGREE_PER_SLICE [Floating number] : rotation degrees per slice in wheel.
+	1.9) Define SOUNDS [Object ] : sound effects.
+	1.10 )Define BUY_CHIP_AMOUNTS [Array] : buy chip amounts.
+
+2) Define required variables used to track the state of the game
+	2.1) Define total bet [Integer] : store the total bet amount in the betting table.
+	2.2) Define bet order [Array] : store the bet made by player in order.
+	2.3) Define balance [Integer] : store the player's current balance.
+	2.4) Define board [Array] : store the bet amount placed in the table.
+	2.5) Define payout [Object] : store numbers as key and payout as value.
+	2.6) Define winning number [Integer] : store the winning number.
+	2.7) Define chosen chip [Integer] : store the value of the chip chosen by player.
+	2.8) Define odd history [Array] : store the odd winning numbers of the past ten games.
+	2.9) Define eve history [Array] : store the even winning number of the past ten games.
+	2.10) Define spin status [Boolean] : True -> wheel is spinning. False -> wheel stops spinning.
+	2.11) Define previous board [Array] : store board/bet table data of last game.
+	2.12) Define previous payout [Object] : store the payout of last game.
+	2.13) Define previous bet order [Array] : store the betting order of last game.
+	2.14) Define previous total bet [Integer] : store the total bet amount of last game.
+	2.15) Define previous balance [Integer] : store the ending balance of last game.
+	2.16) Define degree ball [Floating number] : store the rotation degree of the ball.
+	2.17) Define wheel index [Floating number] : store the corresponding index for only wheel spinning.
+	2.18) Define ball index [Floating number] : store the corresponding index for only ball spinning.
+
+
+3) Store elements on the page that will be accessed in code more than once in variables to make code more concise, readable and performative.
+ 	3.1) Play button.
+ 	3.2) Player's current balance element.
+ 	3.3) Roulette wheel element.
+ 	3.4) Betting table element.
+ 	3.5) Odd winning number history element.
+ 	3.6) Even winning number history element.
+ 	3.7) Ball element.
+ 	3.8) Clear button element.
+ 	3.9) Message Element.
+	3.10) Undo button element.
+ 	3.11) All chosen chip buttons.
+ 	3.12) Double bet button.
+ 	3.13) Repeat last bet button.
+ 	3.14) Spin button.
+ 	3.15) Sound on button.
+ 	3.16) Sound off button.
+ 	3.17) Buy chip button.
+ 	3.18) Buy chip amount elements.
+ 	3.19) Winning message element.
+ 	3.20) Modal element.
+ 	3.21) Bet amount element.
+
+4) Upon loading the app should:
+  	4.1) Initialize the state variables
+		4.1.1) Initialize the starting balance to be the default balance.
+		4.1.2) Initialize the winning number to be null.
+		4.1.3) Initialize the bet table object to be empty.
+		4.1.4) Initialize the chosen chip amount to be 1.
+		4.1.5) Initialize the bet amount to be 0.
+		4.1.6) Initialize the odd and even history arrays to be empty.
+		4.1.7) Initialize the bet order array to be empty.
+		4.1.8) Initialize the board array with all 0.
+
+  	4.2) Render those values to the page
+		4.2.1) Render the board(table)
+  			4.2.1.1) Loop over the board and for each iteration: set the color of the chip, display the amount of bet at each 'cell’. Make the hidden chip image visible if it's not 0.
+		4.2.2) Render the history table
+  			4.2.2.1) Update the history div text content with values in the odd and even history arrays.
+		4.2.3) Render player's current balance and total current bet amounts.
+		4.2.4) Render buttons
+  			4.2.4.1) Hide the undo, clear, spin button if the player has no bets yet
+ 			4.2.4.2) Hide the repeat last bet button if this is the first game.
+  			4.2.4.3) Hide the chosen chip buttons if the balance is below that chip amount.
+  	4.3) Wait for the user to click.
+
+
+5) Handle a player clicking the bet table. 
+	5.1) Update the bet table object to store the player’s bet on each number and bet options, depending on what bet amount chosen by the player.
+	5.2) Display the bet amount of that clicked element, adjust the chip color depending on the bet amount.  
+	5.3) Reduce the player’s balance by the chosen chip amount. 
+
+6) Handle a player clicking the chosen chip element, update the bet amount chosen.
+
+7) Handle a player clicking the clear button, clear all the bets on the table.
+
+8) Handle a player clicking the undo button, withdraw the last bet.
+
+9) Handle a player clicking the repeat last bet button, replace the current game data with last game data.
+
+10) Handle a player clicking the spin button, start the animation for spinning.
+ 	10.1) Define a random degree for the wheel rotation and a random degree for the ball rotation.
+ 	10.2) According to the rotation degrees, do some math to calculate the winning number index and store the winning number. 
+
+11) Handle the case when the spin stops /animation is over
+	11.1) Check if the winning number is in the player bet table, then update the player's balance, the history array, and the win/lose message and winning number message.
+	11.2) Adjust the degrees of the ball according to the difference between rounded winning number index and unrounded winning number index.
+
+12) Handle new game
+	12.1) Reset all data and transition, transform.. etc to be their initial values.
+	12.2) Hide the wheel.
+
+13) Handle a player clicking the sound on button, activate all sound effects.
+
+14) Handle a player clicking the sound off button, disable all sound effects.
+
+15) Handle a player clicking the buy chip button.
+	15.1) Show the buy chip page.
+	15.2) If a player clicks the buy chip amount button, update the balance and also the previous balance.

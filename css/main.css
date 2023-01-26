@@ -1,6 +1,6 @@
 * {
-    box-sizing: border-box;
-  }
+  box-sizing: border-box;
+}
 
 *:focus {
   outline: none;
@@ -13,8 +13,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(17,153,59);
-  background: radial-gradient(circle, rgba(17,153,59,1) 0%, rgba(4,40,33,1) 100%);
+  background: rgba(17, 153, 59);
+  background: radial-gradient(circle, rgba(17, 153, 59, 1) 0%, rgba(4, 40, 33, 1) 100%);
 }
 
 /* first page before game starts */
@@ -29,13 +29,11 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  /* background: rgba(17,153,59);
-  background: radial-gradient(circle, rgba(17,153,59,1) 0%, rgba(4,40,33,1) 100%); */
   background-image: url(../img/first_page_bg.jpg);
   background-size: cover;
 }
 
-section > h1 {
+section>h1 {
   color: darkgoldenrod;
   margin-top: 0.5vmin;
   margin-bottom: 0;
@@ -45,10 +43,8 @@ section > h1 {
   letter-spacing: 2vmin;
 }
 
-section > h2 {
+section>h2 {
   color: gold;
-  /* color: gold; */
-  /* color: rgb(246,222,78); */
   margin-top: 0.5vmin;
   font-size: 12vmin;
   margin-bottom: 2vmin;
@@ -57,7 +53,7 @@ section > h2 {
   letter-spacing: 0.3vmin;
 }
 
-section > p {
+section>p {
   font-size: 3vmin;
   margin-top: 6vmin;
   font-family: 'Courgette', cursive;
@@ -98,7 +94,7 @@ section > p {
   color: white;
   -webkit-text-stroke: 0.1vmin black;
   letter-spacing: 1.5vmin;
-  font-weight: bold; 
+  font-weight: bold;
 }
 
 .board {
@@ -140,37 +136,45 @@ section > p {
   border-radius: 50%;
   border: none;
 }
+
 #thirteen-to-twentyfour {
   grid-area: 10 / 12 / span 1 / span 7;
   border: 1px solid black;
   border-radius: 50%;
   border: none;
 }
+
 #twentyfive-to-thirtysix {
   grid-area: 10 / 20 / span 1 / span 7;
   border: 1px solid black;
   border-radius: 50%;
   border: none;
 }
+
 #one-to-eighteen {
   grid-area: 12 / 4 / span 1 / span 3;
 }
+
 #EVEN {
   grid-area: 12 / 8 / span 1 / span 3;
 }
+
 #RED {
   grid-area: 12 / 12 / span 1 / span 3;
   clip-path: polygon(50% 10%, 95% 50%, 50% 90%, 5% 50%);
   background: darkred;
 }
+
 #BLACK {
   grid-area: 12 / 16 / span 1 / span 3;
   clip-path: polygon(50% 10%, 95% 50%, 50% 90%, 5% 50%);
   background: black;
 }
+
 #ODD {
   grid-area: 12 / 20 / span 1 / span 3;
 }
+
 #nineteen-to-thirtysix {
   grid-area: 12 / 24 / span 1 / span 3;
   border: 1px solid black;
@@ -185,35 +189,43 @@ section > p {
 .span-row {
   grid-row: span 3;
 }
+
 .line {
   background-color: white;
 }
+
 .num {
   border-radius: 50%;
   border: 0.01rem solid black;
   margin: 0.05rem;
 }
 
-#board > div > div {
+#board>div>div {
   height: 80%;
   width: 80%;
 }
+
 .rotate {
   transform: rotate(-90deg);
 }
+
 div div div {
   font-size: 5vmin;
   color: white;
 }
+
 .last-col {
   font-size: 3vmin;
 }
+
 .last-row {
   font-size: 4vmin
 }
+
 .black {
   background-color: black;
 }
+
 .red {
   background-color: red;
 }
@@ -230,11 +242,12 @@ div div div {
   font-weight: bold;
   font-size: 2.5vmin;
   font-family: 'Space Mono', monospace;
-  background: rgb(88,110,84);
-  background: linear-gradient(90deg, rgba(88,110,84,1) 0%, rgba(77,148,97,0.7315301120448179) 0%);
+  background: rgb(88, 110, 84);
+  background: linear-gradient(90deg, rgba(88, 110, 84, 1) 0%, rgba(77, 148, 97, 0.7315301120448179) 0%);
 }
 
-#odd-history, #even-history {
+#odd-history,
+#even-history {
   display: grid;
   grid-template-rows: repeat(10, 1fr);
   justify-items: center;
@@ -245,9 +258,10 @@ div div div {
   border-right: 0.4vmin dashed darkgreen;
 }
 
-#clear, #undo {
+#clear,
+#undo {
   height: 15vmin;
-  width: 15vmin; 
+  width: 15vmin;
   position: absolute;
   left: 0.5vw;
   top: 25vh;
@@ -272,7 +286,6 @@ div div div {
   bottom: 28vh;
   height: 13vmin;
   width: 20vmin;
-  /* background-color: rgba(54, 52, 52, 0.308); */
   background-color: rgba(0, 0, 0, 0.712);
   border-radius: 30%;
   padding: 1.6vmin 0.8vmin 0.6vmin 1.2vmin;
@@ -297,7 +310,10 @@ div div div {
   border-radius: 30%;
 }
 
-#clear:hover, #undo:hover, #double-bet:hover, #repeat-last-bet:hover {
+#clear:hover,
+#undo:hover,
+#double-bet:hover,
+#repeat-last-bet:hover {
   background-color: rgb(28, 75, 34);
   opacity: 1;
 }
@@ -351,24 +367,28 @@ div div div {
   background-image: url(../img/silver_chip.jpg);
   background-size: cover;
 }
+
 #yellow-chip {
   left: 5vw;
   bottom: 22vh;
   background-image: url(../img/yellow_chip.jpg);
   background-size: cover;
 }
+
 #green-chip {
   left: 8vw;
   bottom: 8vh;
   background-image: url(../img/green_chip.jpg);
   background-size: cover;
 }
+
 #blue-chip {
   left: 15vw;
   bottom: 1vh;
   background-image: url(../img/blue_chip.jpg);
   background-size: cover;
 }
+
 #purple-chip {
   left: 22.5vw;
   bottom: 0vh;
@@ -386,6 +406,7 @@ div div div {
   padding: 0.5vmin;
   border-radius: 30%;
 }
+
 #sound-off {
   position: absolute;
   top: 5vh;
@@ -396,12 +417,16 @@ div div div {
   padding: 0.5vmin 0.8vmin 0.5vmin 0.5vmin;
   border-radius: 30%;
 }
-.sound-on, .sound-off {
+
+.sound-on,
+.sound-off {
   scale: 1.2;
 }
-#sound-on:hover, #sound-off:hover {
-  background: rgb(160,199,149);
-  background: radial-gradient(circle, rgba(160,199,149,1) 0%, rgba(79,133,68,1) 100%);
+
+#sound-on:hover,
+#sound-off:hover {
+  background: rgb(160, 199, 149);
+  background: radial-gradient(circle, rgba(160, 199, 149, 1) 0%, rgba(79, 133, 68, 1) 100%);
 }
 
 #buy-chip {
@@ -419,6 +444,7 @@ div div div {
   background-color: transparent;
   opacity: 0.85;
 }
+
 #buy-chip:hover {
   background-color: darkslategrey;
   opacity: 1;
@@ -435,6 +461,7 @@ div div div {
   font-family: 'Fjalla One', sans-serif;
   -webkit-text-stroke: 0.1vmin lightgreen;
 }
+
 #bet-amount {
   height: 8vmin;
   width: 20vmin;
@@ -450,131 +477,142 @@ div div div {
 
 /* every slot has a chip inside but it's hidden until click */
 figure {
-position: absolute; 
-border-radius: 50%; 
-height:6vmin; 
-width: 6vmin; 
-background-image: url(./img/silver_chip.jpg); 
-background-size: cover;
-visibility: hidden;
-margin: 0;
-font-size: 100%;
-font-family: 'Source Sans Pro', sans-serif;
+  position: absolute;
+  border-radius: 50%;
+  height: 6vmin;
+  width: 6vmin;
+  background-image: url(./img/silver_chip.jpg);
+  background-size: cover;
+  visibility: hidden;
+  margin: 0;
+  font-size: 100%;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
-.board div div, .board div figure {
-pointer-events: none;
+.board div div,
+.board div figure {
+  pointer-events: none;
 }
 
 .larger-area {
-position: absolute;
-height: 5vmin;
-width: 5vmin;
-z-index: 1;
-pointer-events: auto !important;
+  position: absolute;
+  height: 5vmin;
+  width: 5vmin;
+  z-index: 1;
+  pointer-events: auto !important;
 }
-div > .taller {
-position: absolute;
-height: 6vmin;
-width: 4vmin;
-z-index: 1;
-pointer-events: auto !important;
+
+div>.taller {
+  position: absolute;
+  height: 6vmin;
+  width: 4vmin;
+  z-index: 1;
+  pointer-events: auto !important;
 }
-div > .wider {
-position: absolute;
-height: 4vmin;
-width: 5vmin;
-z-index: 1;
-pointer-events: auto !important;
+
+div>.wider {
+  position: absolute;
+  height: 4vmin;
+  width: 5vmin;
+  z-index: 1;
+  pointer-events: auto !important;
 }
-div > .even-wider {
-position: absolute;
-height: 4vmin;
-width: 10vmin;
-z-index: 1;
-pointer-events: auto !important;
+
+div>.even-wider {
+  position: absolute;
+  height: 4vmin;
+  width: 10vmin;
+  z-index: 1;
+  pointer-events: auto !important;
 }
 
 .modal {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0, 0, 0, 0.5);
-opacity: 0; 
-visibility: hidden;
-display: flex;
-align-items: center;
-justify-content: center;
-/* transition: visibility 0s opacity 0.25s transform 0.25s; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.modal > #wheel {
-height: 80vmin;
-width: 80vmin;
-background-image: url(../img/roulette_wheel4.jpg);
-background-size: cover;
-display: flex;
-align-items: center;
-justify-content: center;
+
+.modal>#wheel {
+  height: 80vmin;
+  width: 80vmin;
+  background-image: url(../img/roulette_wheel4.jpg);
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .modal #ball-container {
-position: absolute;
-margin-left: auto;
-margin-right: auto;
-left: 0;
-right: 0;
-height: 50vmin;
-width: 50vmin;
-display: flex;
-justify-content: flex-start;
-rotate: 45deg;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  height: 50vmin;
+  width: 50vmin;
+  display: flex;
+  justify-content: flex-start;
+  rotate: 45deg;
 }
+
 #ball {
-height: 2.5vmin;
-width: 2.5vmin;
-background-image: url(../img/ball.png);
-background-size: cover;
-border-radius: 50%;
+  height: 2.5vmin;
+  width: 2.5vmin;
+  background-image: url(../img/ball.png);
+  background-size: cover;
+  border-radius: 50%;
 }
+
 .show-modal {
-opacity: 1;
-visibility: visible;
-transition: opacity 1s;
-z-index: 2;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 1s;
+  z-index: 2;
 }
-.show-modal > #wheel {
-transition: all 4.5s cubic-bezier(.24,.8,.58,1);
+
+.show-modal>#wheel {
+  transition: all 4.5s cubic-bezier(.24, .8, .58, 1);
 }
 
 @keyframes bounce {
-from {
+  from {
     transform: translate3d(0, 0, 0);
-}
-to {
+  }
+
+  to {
     transform: translate3d(-0.9vmin, 0.5vmin, 0) scale(1.05);
-}
-}
-.show-modal #ball-container #ball {
-animation: bounce 0.25s ease-out;
-animation-direction: alternate;
-animation-delay: 3s;
-animation-iteration-count: 5;
-}
-.show-modal #ball-container {
-height: 33.5vmin !important;
-width: 33.5vmin !important;
-transition: all 4.5s cubic-bezier(.24,.8,.58,1);
+  }
 }
 
-.modal > h1 {
-position: absolute;
-margin-left: auto;
-top: 2vh;
-font-size: 4vmin;
-letter-spacing: 0.3vmin;
-color: orange;
-font-family: 'Fjalla One', sans-serif;
+.show-modal #ball-container #ball {
+  animation: bounce 0.25s ease-out;
+  animation-direction: alternate;
+  animation-delay: 3s;
+  animation-iteration-count: 5;
+}
+
+.show-modal #ball-container {
+  height: 33.5vmin !important;
+  width: 33.5vmin !important;
+  transition: all 4.5s cubic-bezier(.24, .8, .58, 1);
+}
+
+.modal>h1 {
+  position: absolute;
+  margin-left: auto;
+  top: 2vh;
+  font-size: 4vmin;
+  letter-spacing: 0.3vmin;
+  color: orange;
+  font-family: 'Fjalla One', sans-serif;
 }
 
 .buy-chip-page {
@@ -584,7 +622,7 @@ font-family: 'Fjalla One', sans-serif;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  opacity: 0; 
+  opacity: 0;
   visibility: hidden;
   display: flex;
   align-items: center;
@@ -592,16 +630,16 @@ font-family: 'Fjalla One', sans-serif;
   z-index: 1;
 }
 
-.buy-chip-page > h1 {
+.buy-chip-page>h1 {
   position: absolute;
   top: 2vh;
   font-size: 13vmin;
   color: orange;
-  font-family:'Times New Roman', Times, serif;
+  font-family: 'Times New Roman', Times, serif;
   letter-spacing: normal;
 }
 
-.buy-chip-page > div {
+.buy-chip-page>div {
   height: 60vh;
   width: 70vw;
   display: grid;
@@ -622,34 +660,35 @@ font-family: 'Fjalla One', sans-serif;
   color: white;
   -webkit-text-stroke: 0.4vmin darkgreen;
 }
+
 #buy100 {
-  background: rgb(182,182,182);
-  background: radial-gradient(circle, rgba(182,182,182,1) 0%, rgba(64,64,64,1) 100%);
+  background: rgb(182, 182, 182);
+  background: radial-gradient(circle, rgba(182, 182, 182, 1) 0%, rgba(64, 64, 64, 1) 100%);
 }
 
 #buy200 {
-  background: rgb(248,249,107);
-  background: radial-gradient(circle, rgba(248,249,107,1) 0%, rgba(117,129,20,1) 100%);
+  background: rgb(248, 249, 107);
+  background: radial-gradient(circle, rgba(248, 249, 107, 1) 0%, rgba(117, 129, 20, 1) 100%);
 }
 
 #buy500 {
-  background: rgb(141,242,139);
-  background: radial-gradient(circle, rgba(141,242,139,1) 0%, rgba(26,74,8,1) 100%);
+  background: rgb(141, 242, 139);
+  background: radial-gradient(circle, rgba(141, 242, 139, 1) 0%, rgba(26, 74, 8, 1) 100%);
 }
 
 #buy1000 {
-  background: rgb(107,196,249);
-  background: radial-gradient(circle, rgba(107,196,249,1) 0%, rgba(20,77,129,1) 100%);
+  background: rgb(107, 196, 249);
+  background: radial-gradient(circle, rgba(107, 196, 249, 1) 0%, rgba(20, 77, 129, 1) 100%);
 }
 
 #buy2000 {
-  background: rgb(206,107,249);
-  background: radial-gradient(circle, rgba(206,107,249,1) 0%, rgba(113,51,134,1) 100%);
+  background: rgb(206, 107, 249);
+  background: radial-gradient(circle, rgba(206, 107, 249, 1) 0%, rgba(113, 51, 134, 1) 100%);
 }
 
 #buy5000 {
-  background: rgb(249,107,107);
-  background: radial-gradient(circle, rgba(249,107,107,1) 0%, rgba(129,20,20,1) 100%);
+  background: rgb(249, 107, 107);
+  background: radial-gradient(circle, rgba(249, 107, 107, 1) 0%, rgba(129, 20, 20, 1) 100%);
 }
 
 .show-buy-chip-page {
@@ -660,23 +699,24 @@ font-family: 'Fjalla One', sans-serif;
 }
 
 #wide-screen-require {
-position: absolute;
-visibility: hidden;
+  position: absolute;
+  visibility: hidden;
 }
 
-@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait)  {
-* {
-  visibility: hidden !important;
-}
-#wide-screen-require {
-  visibility: visible !important;
-  font-size: 8vmin;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  background: radial-gradient(circle, rgba(17,153,59,1) 0%, rgba(4,40,33,1) 100%);
-}
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+  * {
+    visibility: hidden !important;
+  }
+
+  #wide-screen-require {
+    visibility: visible !important;
+    font-size: 8vmin;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background: radial-gradient(circle, rgba(17, 153, 59, 1) 0%, rgba(4, 40, 33, 1) 100%);
+  }
 }
