@@ -182,8 +182,8 @@ function handleBet(evt) {
     board[betIdx] += chosenChip;
     balance -= chosenChip;
     totalBet += chosenChip;
-    let betNumbers = boardEls[betIdx].getAttribute('nums').split(' '); //get the array of bet numbers from attribute nums
-    let betOption = boardEls[betIdx].getAttribute('option');
+    let betNumbers = boardEls[betIdx].dataset.nums.split(' '); //get the array of bet numbers from data attribute nums
+    let betOption = boardEls[betIdx].dataset.option; // get the string of option payout from data attribute option
     // if the payout object key has a value, then increment it by the chosen chip amount * option payout
     // if the key does not have a value, assign the value of chosen chip amount * option payout
     for (let betNum of betNumbers) {
