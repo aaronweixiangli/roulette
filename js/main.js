@@ -385,6 +385,7 @@ function handleSpinStops(evt) {
                 sound.play();
             }
             balance += payout[winningNum];
+            console.log(`balance: ${balance}`);
             if (RED.includes(winningNum)) {
                 winningMsgEl.textContent = `RED ${winningNum}! Player wins ${payout[winningNum]}!`
             } else if (BLACK.includes(winningNum)) {
