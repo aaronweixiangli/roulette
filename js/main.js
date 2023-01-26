@@ -285,8 +285,8 @@ function handleDoubleBet(){
 }
 
 function handleRepeatLastBet() {
-    // Guard. Balance cannot be smaller than 0
-    if (balance - previousTotalBet < 0) return;
+    // Guard. Balance cannot be smaller than 0. Actual balance when playing should be current balance + current total bets
+    if (balance + totalBet - previousTotalBet < 0) return;
     if (!soundOffBtn.classList.contains('sound-off')) {
         // Add sound effect for bet
         sound.src =  SOUNDS.money;
@@ -310,13 +310,6 @@ function handleSpin() {
         sound.src = SOUNDS.ball;
         sound.play();
     }
-    // Store the data from the previous game
-    previousBoard = board; 
-    previousBetOrder = betOrder; 
-    previousPayout = payout; 
-    previousTotalBet = totalBet;
-    previousBalance = balance;
-    console.log(`previousBetOrder: ${previousBetOrder}`);
     // Toggle or add a 'show-modal' class to the modal class which contains the wheel
     modalEl.classList.toggle('show-modal');
     // let the wheel spin 1080 degree + a random degree between 0 to 720
@@ -408,6 +401,7 @@ function handleSpinStops(evt) {
                 winningMsgEl.textContent = `WHITE ${winningNum}! Dealer wins!`
             }
         }
+       
         // If the winning number is odd, then push it to the oddHistory array.
         // Also push null to the evenHistory array so they have the same array length.
         // else, do the opposite.
@@ -426,7 +420,14 @@ function handleSpinStops(evt) {
         }
         // Once transition is ended. Update the spinStatus to be False.
         spinStatus = false;
-    }, 1300)
+
+        // Store the data from the previous game
+        previousBoard = board; 
+        previousBetOrder = betOrder; 
+        previousPayout = payout; 
+        previousTotalBet = totalBet;
+        previousBalance = balance;
+        }, 1300)
 }
 
 function handleNewGame(){
@@ -437,6 +438,7 @@ function handleNewGame(){
         sound.src = SOUNDS.page;
         sound.play();
     }
+    
     // Toggle or remove the 'show-modal' class from the modal class which contains the wheel
     // so the wheel is hidden
     modalEl.classList.toggle('show-modal');
