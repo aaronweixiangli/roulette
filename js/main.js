@@ -9,14 +9,13 @@ const OPTIONS = {
     six: 6,
     twelve: 3,
     even: 2
-    };
+};
 const DEFAULT_BALANCE = 1000;
 const CHIPS = [1, 2, 5, 10, 100];
 const CHIPS_IMG = {
-    empty: '',
-    silver: "url(./img/silver_chip.jpg)", 
+    silver: "url(./img/silver_chip.jpg)",
     yellow: "url(./img/yellow_chip.jpg)",
-    green: "url(./img/green_chip.jpg)", 
+    green: "url(./img/green_chip.jpg)",
     blue: "url(./img/blue_chip.jpg)",
     purple: "url(./img/purple_chip.jpg)"
 };
@@ -24,17 +23,14 @@ const CHIPS_IMG = {
 const RED = ['1', '3', '5', '7', '9', '12', '14', '16', '18', '19', '21', '23', '25', '27', '30', '32', '34', '36'];
 // numbers that are in black
 const BLACK = ['2', '4', '6', '8', '10', '11', '13', '15', '17', '20', '22', '24', '26', '28', '29', '31', '33', '35'];
-
 // all numbers
 const NUMBERS = [
     '0', '28', '9', '26', '30', '11', '7', '20', '32', '17', '5', '22', '34',
     '15', '3', '24', '36', '13', '1', '00', '27', '10', '25', '29', '12', '8',
     '19', '31', '18', '6', '21', '33', '16', '4', '23', '35', '14', '2'
 ];
-
 // degrees per slice in the wheel. Total 38 numbers, 360 degrees
-const DEGREE_PER_SLICE = 360/NUMBERS.length;
-
+const DEGREE_PER_SLICE = 360 / NUMBERS.length;
 // Sound effects
 const SOUNDS = {
     ball: "sound/ball_sound_effect.wav",
@@ -45,7 +41,6 @@ const SOUNDS = {
     win: "sound/win_sound_effect.wav",
     page: "sound/page_turn_sound_effect.wav"
 }
-
 //Buy chip amounts
 const BUY_CHIP_AMOUNTS = [100, 200, 500, 1000, 2000, 5000];
 
@@ -70,12 +65,12 @@ let degreeBall; //float; store the rotation degree of the ball container
 let wheelIdx; //float; store the corresponding index for only wheel spinning
 let ballIdx; // float; store the corresponding index for only ball spinning
 
-    
+
 /*----- cached elements  -----*/
 const playBtn = document.getElementById("play");
-const boardEls = [...document.querySelectorAll('.board > div')] // all the direct child of the board
-const balanceEl = document.getElementById('balance'); // player's current balance element
-const betAmountEl = document.getElementById('bet-amount'); // player's total bet amount element
+const boardEls = [...document.querySelectorAll('.board > div')] // all the direct child elements of the board
+const balanceEl = document.getElementById('balance');
+const betAmountEl = document.getElementById('bet-amount');
 const silverChipBtn = document.getElementById('silver-chip');
 const yellowChipBtn = document.getElementById('yellow-chip');
 const greenChipBtn = document.getElementById('green-chip');
@@ -99,16 +94,14 @@ const soundOffBtn = document.getElementById('sound-off');
 const buyChipBtn = document.getElementById('buy-chip');
 const buyChipEls = [...document.querySelectorAll('.buy-chips')];
 
-/*----- event listeners -----*/
 
+/*----- event listeners -----*/
 // hide the first page when play button is clicked.
 playBtn.addEventListener('click', handlePlay);
-
-
 // update the board data if the board elements are clicked.
 document.querySelector('.board').addEventListener('click', handleBet);
 // update the variable chosenChip when chip is clicked.
-document.querySelectorAll('.chip').forEach(function(chip) {
+document.querySelectorAll('.chip').forEach(function (chip) {
     chip.addEventListener('click', handleChip);
 });
 // update the board data when undo button is clicked.
@@ -124,7 +117,7 @@ spinBtn.addEventListener('click', handleSpin);
 // update balance when the wheel stops spinning and show the winning message. That is, transition has ended.
 wheelEl.addEventListener('transitionend', handleSpinStops);
 // whenever the player clicks after the transition ends
-// reset all data to its initial values, except for the chosenChip and history array
+// reset all data to its initial values, except for the chosenChip and odd/even history arrays
 modalEl.addEventListener('click', handleNewGame);
 // Add a class 'sound-off' to the soundOffBtn when soundOffBtn is clicked.
 soundOffBtn.addEventListener('click', handleSoundOff);
@@ -140,19 +133,19 @@ document.querySelector('.buy-chip-page').addEventListener('click', handleBuyChip
 init();
 function init() {
     board = [
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //11 elements that take more than 1 span
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // first row 29 elements
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  //second row 28 elements
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  //third row 28 elements
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  //fourth row 28 elements
-        0,                                                                                   //fifth row 1 elements
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  //sixth row 28 elements
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  //seventh row 28 elements
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // eighth row 29 elements
-        0, 0, 0, 0, 0, 0, 0, 0,                                                                // ninth row 8 elements
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // tenth row 29 elements
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,                                                       // eleventh row 11 elements
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // twelfth row 29 elements
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //11 direct child elements that take more than 1 span
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // first row 29 direct chlid elements
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  //second row 28 direct chlid elements
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  //third row 28 direct chlid elements
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  //fourth row 28 direct chlid elements
+        0,                                                                                   //fifth row 1 direct chlid elements
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  //sixth row 28 direct chlid elements
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  //seventh row 28 direct chlid elements
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // eighth row 29 direct chlid elements
+        0, 0, 0, 0, 0, 0, 0, 0,                                                                // ninth row 8 direct chlid elements
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // tenth row 29 direct chlid elements
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,                                                       // eleventh row 11 direct chlid elements
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // twelfth row 29 direct chlid elements
     ]
     betOrder = [];
     balance = DEFAULT_BALANCE;
@@ -173,13 +166,12 @@ function handleBet(evt) {
     if (balance <= 0 || balance - chosenChip < 0) return;
     // Add sound effect for bet
     if (!soundOffBtn.classList.contains('sound-off')) {
-        sound.src =  SOUNDS.bet;
+        sound.src = SOUNDS.bet;
         sound.play();
     }
     let betPosition = evt.target;
-    console.log(betPosition);
     let betIdx;
-    if (betPosition.getAttribute('class') === 'larger-area' || 
+    if (betPosition.getAttribute('class') === 'larger-area' ||
         betPosition.getAttribute('class') === 'taller' ||
         betPosition.getAttribute('class') === 'wider' ||
         betPosition.getAttribute('class') === 'even-wider') {
@@ -190,10 +182,10 @@ function handleBet(evt) {
     board[betIdx] += chosenChip;
     balance -= chosenChip;
     totalBet += chosenChip;
-    let betNumbers = boardEls[betIdx].getAttribute('nums').split(' ');
+    let betNumbers = boardEls[betIdx].getAttribute('nums').split(' '); //get the array of bet numbers from attribute nums
     let betOption = boardEls[betIdx].getAttribute('option');
-    console.log(betNumbers);
-    console.log(betOption);
+    // if the payout object key has a value, then increment it by the chosen chip amount * option payout
+    // if the key does not have a value, assign the value of chosen chip amount * option payout
     for (let betNum of betNumbers) {
         payout[betNum] = payout[betNum] ? payout[betNum] + chosenChip * OPTIONS[betOption] : chosenChip * OPTIONS[betOption];
     }
@@ -202,12 +194,12 @@ function handleBet(evt) {
 }
 
 function handleChip(evt) {
-    if (!soundOffBtn.classList.contains('sound-off')){
+    if (!soundOffBtn.classList.contains('sound-off')) {
         // Add sound effect for chip chosen
         sound.src = SOUNDS.chip;
         sound.play();
     }
-    document.querySelectorAll('.chip').forEach(function(chip) {
+    document.querySelectorAll('.chip').forEach(function (chip) {
         chip.classList.remove('active');
     });
     evt.target.classList.add('active');
@@ -215,9 +207,9 @@ function handleChip(evt) {
 }
 
 function handleUndo() {
-    if (!soundOffBtn.classList.contains('sound-off')){
-        // Add sound effect for bet
-        sound.src =  SOUNDS.money;
+    if (!soundOffBtn.classList.contains('sound-off')) {
+        // Add sound effect for money
+        sound.src = SOUNDS.money;
         sound.play();
     }
     let [chip, removeIdx, betNumbers, betOption] = betOrder.pop();
@@ -237,7 +229,7 @@ function handleUndo() {
 function handleClear() {
     if (!soundOffBtn.classList.contains('sound-off')) {
         // Add sound effect for bet
-        sound.src =  SOUNDS.money;
+        sound.src = SOUNDS.money;
         sound.play();
     }
     while (betOrder.length > 0) {
@@ -255,12 +247,12 @@ function handleClear() {
     render();
 }
 
-function handleDoubleBet(){
+function handleDoubleBet() {
     // Guard. Balance cannot be smaller than 0
     if (balance - totalBet < 0) return;
-    if (!soundOffBtn.classList.contains('sound-off')){
+    if (!soundOffBtn.classList.contains('sound-off')) {
         // Add sound effect for bet
-        sound.src =  SOUNDS.money;
+        sound.src = SOUNDS.money;
         sound.play();
     }
     // double the number in board and update the balance and totalBet
@@ -279,8 +271,6 @@ function handleDoubleBet(){
     for (key in payout) {
         payout[key] *= 2;
     }
-    console.log(`double bet: previousBetOrder: ${previousBetOrder}`);
-    console.log(`double bet: betOrder: ${betOrder}`);
     render();
 }
 
@@ -289,16 +279,14 @@ function handleRepeatLastBet() {
     if (balance + totalBet - previousTotalBet < 0) return;
     if (!soundOffBtn.classList.contains('sound-off')) {
         // Add sound effect for bet
-        sound.src =  SOUNDS.money;
+        sound.src = SOUNDS.money;
         sound.play();
     }
     board = previousBoard.slice(); // make a copy of previous board without reference
-    // make a copy of previous betOrder without reference. However, we cannot use slice()
+    // make a copy of previous betOrder without reference. However, we cannot use shadow copy slice()
     // since the array we are copying contains an object or array. Need to use deep copy
     betOrder = JSON.parse(JSON.stringify(previousBetOrder));
-    console.log(`repeat last bet: previousBetOrder: ${previousBetOrder}`);
-    console.log(`repeat last bet: betOrder: ${betOrder}`);
-    payout = {...previousPayout}; // make a copy of previous payout object without reference
+    payout = { ...previousPayout }; // make a copy of previous payout object without reference
     totalBet = previousTotalBet;
     balance = previousBalance - previousTotalBet;
     render();
@@ -322,28 +310,20 @@ function handleSpin() {
     // if the ball does not move, then the index of the winning ball would be 
     // the math.round [remainder of (wheel rotating degree / degrees per slice) / length of NUMBERS]
     // Since the ball and wheel both are spinning, we store each unrounded index first
-    wheelIdx = (degreeWheel/DEGREE_PER_SLICE) % NUMBERS.length;
-    
+    wheelIdx = (degreeWheel / DEGREE_PER_SLICE) % NUMBERS.length;
+
     // if the wheel does not move, then the index of the winning ball would be
     // the math.round [remainder of (ball rotating degree / degrees per slice) / length of NUMBERS]
-    ballIdx = ((degreeBall)/DEGREE_PER_SLICE) % NUMBERS.length;
-    console.log(`wheelIdx: ${wheelIdx}`);
-    console.log(`ballIdx: ${ballIdx}`);
+    ballIdx = ((degreeBall) / DEGREE_PER_SLICE) % NUMBERS.length;
 
     // When the ball and the wheel both rotate, the winning index then would be 
     // the remainder of (the rounded sum of wheelIdx and ballIdx / length of numbers)
-    let winningBallIdxUnrounded = (wheelIdx + ballIdx) % NUMBERS.length;
     let winningBallIdx = Math.round(wheelIdx + ballIdx) % NUMBERS.length;
-    console.log(`winning Idx: ${winningBallIdxUnrounded}`);
-    console.log(`winning idx round: ${winningBallIdx}`);
-    console.log(`winning number: ${NUMBERS[winningBallIdx]}`);
 
     // update the winning number
     winningNum = NUMBERS[winningBallIdx];
-    console.log(winningNum);
     // update the spinStatus to be True
-    spinStatus = true; 
-
+    spinStatus = true;
     // reset the ball container transition to be initial values
     ballEl.style.transition = "all 4.5s cubic-bezier(.24,.8,.58,1)";
 }
@@ -357,19 +337,17 @@ function handleSpinStops(evt) {
     // Adjust the ball rotation degree depending on the difference between 
     // the rounded sum of ballIdx and wheelIdx and unrounded sum of ballIdx and wheelIdx . 
     let diffWinningBallIdx = Math.round(ballIdx + wheelIdx) - (ballIdx + wheelIdx);
-    console.log(`diff: ${diffWinningBallIdx}`)
 
     // if the decimal is < 0, the index has been rounded down and > 0 rounded up
     // we want to adjust the ball rotation degree by this difference * the degree per slice
-    // so the ball will sit properly in that winning number slot instead of lying in between numbers
+    // so the ball will sit properly in that winning number slot instead of lying in between two numbers
     ballEl.style.transform = `rotate(${(degreeBall + diffWinningBallIdx * DEGREE_PER_SLICE)}deg)`;
     ballEl.style.transition = 'all 0.5s';
-
     messageEl.style.visibility = 'hidden'; // hide the message element
-    // if the winningNum is in our payout object, which means player has hit the right number.
 
     // After 1.3 seconds, do the following:
     setTimeout(() => {
+        // if the winningNum is in our payout object, which means player has hit the right number.
         // Update the player's balance.
         if (winningNum in payout) {
             if (!soundOffBtn.classList.contains('sound-off')) {
@@ -378,7 +356,6 @@ function handleSpinStops(evt) {
                 sound.play();
             }
             balance += payout[winningNum];
-            console.log(`balance: ${balance}`);
             if (RED.includes(winningNum)) {
                 winningMsgEl.textContent = `RED ${winningNum}! Player wins ${payout[winningNum]}!`
             } else if (BLACK.includes(winningNum)) {
@@ -401,11 +378,11 @@ function handleSpinStops(evt) {
                 winningMsgEl.textContent = `WHITE ${winningNum}! Dealer wins!`
             }
         }
-       
+
         // If the winning number is odd, then push it to the oddHistory array.
         // Also push null to the evenHistory array so they have the same array length.
         // else, do the opposite.
-        if (parseInt(winningNum) % 2 === 1){
+        if (parseInt(winningNum) % 2 === 1) {
             oddHistory.push(winningNum);
             evenHistory.push(null);
         } else {
@@ -413,59 +390,56 @@ function handleSpinStops(evt) {
             oddHistory.push(null);
         }
         // We are only storing numbers for the past 10 games.
-        // so whenever the length of the oddHistory array goes above 10, remove the left element for both odd and even history.
+        // so whenever the length of the oddHistory array goes above 10, remove the left element for both odd and even history arrays.
         if (oddHistory.length > 10) {
             oddHistory.shift();
             evenHistory.shift();
         }
-        // Once transition is ended. Update the spinStatus to be False.
+        // Once transition is ended, update the spinStatus to be False.
         spinStatus = false;
 
         // Store the data from the previous game
-        previousBoard = board; 
-        previousBetOrder = betOrder; 
-        previousPayout = payout; 
+        previousBoard = board;
+        previousBetOrder = betOrder;
+        previousPayout = payout;
         previousTotalBet = totalBet;
         previousBalance = balance;
-        }, 1300)
+    }, 1300)
 }
 
-function handleNewGame(){
-    // Guard. If the spinStatus is True, which means the wheel is spinning, then do nothing.
+function handleNewGame() {
+    // Guard. If the spinStatus is True, which means the wheel is spinning, do nothing.
     if (spinStatus) return;
     if (!soundOffBtn.classList.contains('sound-off')) {
         // Add sound effect for new page
         sound.src = SOUNDS.page;
         sound.play();
     }
-    
     // Toggle or remove the 'show-modal' class from the modal class which contains the wheel
     // so the wheel is hidden
     modalEl.classList.toggle('show-modal');
-
     // reset the ball container and wheel transform to be none
     ballEl.style.transform = '';
     wheelEl.style.transform = '';
-
     // changes the messageEl to be visible again
     messageEl.style.visibility = 'visible';
     // empty the winningMsgEl's text
     winningMsgEl.textContent = '';
     // Starts the new game so update the all data to its initial values, except chosenChip and history array
     board = [
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //11 elements that take more than 1 span
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // first row 29 elements
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  //second row 28 elements
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  //third row 28 elements
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  //fourth row 28 elements
-        0,                                                                                   //fifth row 1 elements
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  //sixth row 28 elements
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  //seventh row 28 elements
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // eighth row 29 elements
-        0, 0, 0, 0, 0, 0, 0, 0,                                                                // ninth row 8 elements
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // tenth row 29 elements
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,                                                       // eleventh row 11 elements
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // twelfth row 29 elements
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  
+        0,                                                                                   
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0,                                                                
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,                                                       
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
     ]
     betOrder = [];
     totalBet = 0;
@@ -487,27 +461,29 @@ function handleSoundOn() {
 }
 
 function handlePlay() {
+    // move the page up
     document.getElementById('first-page').style.transform = 'translate(0, -100%)';
     document.getElementById('first-page').style.transition = 'all 0.8s ease-in-out';
-    sound.src =  SOUNDS.page;
+    sound.src = SOUNDS.page;
     sound.play();
 }
 
 function handleBuyChip() {
-    if (!soundOffBtn.classList.contains('sound-off')){
+    if (!soundOffBtn.classList.contains('sound-off')) {
         // Add sound effect for chip chosen
         sound.src = SOUNDS.page;
         sound.play();
     }
+    // Toggle / add 'show-buy-chip-page' so it's visible
     document.querySelector('.buy-chip-page').classList.toggle('show-buy-chip-page')
     messageEl.style.visibility = 'hidden'; // hide the message element
 };
 
 function handleBuyChipAmount(evt) {
-    // If not clicking the buy-chip elements, toggle/remove 'show-buy-chip-page' class from 'buy-chip-page'
+    // If not clicking the buy-chip elements, toggle/remove 'show-buy-chip-page' class from 'buy-chip-page' to hide the page
     // Do nothing to current balance
-    if (!evt.target.classList.contains('buy-chips')){
-        if (!soundOffBtn.classList.contains('sound-off')){
+    if (!evt.target.classList.contains('buy-chips')) {
+        if (!soundOffBtn.classList.contains('sound-off')) {
             // Add sound effect for changing page
             sound.src = SOUNDS.page;
             sound.play();
@@ -516,7 +492,7 @@ function handleBuyChipAmount(evt) {
         // show the message element
         messageEl.style.visibility = 'visible';
     } else {
-        if (!soundOffBtn.classList.contains('sound-off')){
+        if (!soundOffBtn.classList.contains('sound-off')) {
             // Add sound effect for chip chosen
             sound.src = SOUNDS.chip;
             sound.play();
@@ -531,7 +507,6 @@ function handleBuyChipAmount(evt) {
         messageEl.style.visibility = 'visible';
         render();
     }
-
 }
 
 function render() {
