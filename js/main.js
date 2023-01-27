@@ -363,7 +363,7 @@ function handleSpinStops(evt) {
             } else {
                 winningMsgEl.textContent = `WHITE ${winningNum}! Player wins ${payout[winningNum]}!`
             }
-        // else, the dealer wins and update the winning message.
+            // else, the dealer wins and update the winning message.
         } else {
             if (!soundOffBtn.classList.contains('sound-off')) {
                 // Add sound effect for losing
@@ -427,19 +427,19 @@ function handleNewGame() {
     winningMsgEl.textContent = '';
     // Starts the new game so update the all data to its initial values, except chosenChip and history array
     board = [
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  
-        0,                                                                                   
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0,                                                                
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,                                                       
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     ]
     betOrder = [];
     totalBet = 0;
@@ -542,31 +542,12 @@ function renderBoard() {
             boardEls[i].lastElementChild.style.visibility = 'hidden';
         }
     }
-    if (balance < CHIPS[0]) {
-        silverChipBtn.style.visibility = 'hidden';
-    } else {
-        silverChipBtn.style.visibility = 'visible';
-    }
-    if (balance < CHIPS[1]) {
-        yellowChipBtn.style.visibility = 'hidden';
-    } else {
-        yellowChipBtn.style.visibility = 'visible';
-    }
-    if (balance < CHIPS[2]) {
-        greenChipBtn.style.visibility = 'hidden';
-    } else {
-        greenChipBtn.style.visibility = 'visible';
-    }
-    if (balance < CHIPS[3]) {
-        blueChipBtn.style.visibility = 'hidden';
-    } else {
-        blueChipBtn.style.visibility = 'visible';
-    }
-    if (balance < CHIPS[4]) {
-        purpleChipBtn.style.visibility = 'hidden';
-    } else {
-        purpleChipBtn.style.visibility = 'visible';
-    }
+    // change the visibility of each chip button according to the player's current balance
+    silverChipBtn.style.visibility = balance < CHIPS[0] ? 'hidden' : 'visible';
+    yellowChipBtn.style.visibility = balance < CHIPS[1] ? 'hidden' : 'visible';
+    greenChipBtn.style.visibility = balance < CHIPS[2] ? 'hidden' : 'visible';
+    blueChipBtn.style.visibility = balance < CHIPS[3] ? 'hidden' : 'visible';
+    purpleChipBtn.style.visibility = balance < CHIPS[4] ? 'hidden' : 'visible';
 }
 
 function renderBalance() {
