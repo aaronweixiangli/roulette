@@ -14,7 +14,7 @@
 A casino game where the player may choose to place a bet on a single number, various groupings of numbers, the color red or black, whether the number is odd or even, or if the numbers are high (19–36) or low (1–18). Different bet has different payout.
 
 ## 🎯How to Win 
-When the spin botton is clicked, the computer spins a wheel in one direction, then spins a ball in the opposite direction around a tilted circular track running around the outer edge of the wheel. The ball eventually falls onto the wheel and into one of thirty-eight colored and numbered pockets on the wheel. The winnings are then paid to player if placed a successful bet.
+When the spin button is clicked, the computer spins a wheel in one direction, then spins a ball in the opposite direction around a tilted circular track running around the outer edge of the wheel. The ball eventually falls onto the wheel and into one of thirty-eight colored and numbered pockets on the wheel. The winnings are then paid to player if placed a successful bet.
 
 ## 📔 Roulette Rules
 | Screenshot | Description |
