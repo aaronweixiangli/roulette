@@ -138,23 +138,14 @@ section>p {
 
 #one-to-twelve {
   grid-area: 10 / 4 / span 1 / span 7;
-  border: 1px solid black;
-  border-radius: 50%;
-  border: none;
 }
 
 #thirteen-to-twentyfour {
   grid-area: 10 / 12 / span 1 / span 7;
-  border: 1px solid black;
-  border-radius: 50%;
-  border: none;
 }
 
 #twentyfive-to-thirtysix {
   grid-area: 10 / 20 / span 1 / span 7;
-  border: 1px solid black;
-  border-radius: 50%;
-  border: none;
 }
 
 #one-to-eighteen {
@@ -183,9 +174,6 @@ section>p {
 
 #nineteen-to-thirtysix {
   grid-area: 12 / 24 / span 1 / span 3;
-  border: 1px solid black;
-  border-radius: 50%;
-  border: none;
 }
 
 .no-border {
