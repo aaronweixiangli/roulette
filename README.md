@@ -13,19 +13,19 @@
 ## 📝 Description
 A casino game where the player may choose to place a bet on a single number, various groupings of numbers, the color red or black, whether the number is odd or even, or if the numbers are high (19–36) or low (1–18). Different bet has different payout.
 
-## 🎯How to Win 
-When the spin botton is clicked, the computer spins a wheel in one direction, then spins a ball in the opposite direction around a tilted circular track running around the outer edge of the wheel. The ball eventually falls onto the wheel and into one of thirty-eight colored and numbered pockets on the wheel. The winnings are then paid to player if placed a successful bet.
+## 🎯 How to Win 
+When the spin button is clicked, the computer spins a wheel in one direction, then spins a ball in the opposite direction around a tilted circular track running around the outer edge of the wheel. The ball eventually falls onto the wheel and into one of thirty-eight colored and numbered pockets on the wheel. The winnings are then paid to player if placed a successful bet.
 
 ## 📔 Roulette Rules
-| Screenshot | Description |
+| Screenshot | Payout Rules |
 |:------------:|:------------:|
-| <img src="https://i.imgur.com/DBXEaCN.jpg" width="200"> | <p style="text-align: left;">1. Single number bet pays 35 to 1. Also called “straight up.” <br>2. Double number bet pays 17 to 1. Also called a “split.”<br>3. Three number bet pays 11 to 1. Also called a “street.”<br> 4. Four number bet pays 8 to 1. Also called a “corner bet.”<br>5. Five number bet pays 6 to 1. Only one specific bet which includes the following numbers: 0-00-1-2-3.<br>6. Six number bets pays 5 to 1.Example: 7, 8, 9, 10, 11, 12. Also called a “line.”<br>7. Twelve numbers or dozens (first, second, third dozen) pays 2 to 1.<br>8.Column bet (12 numbers in a row) pays 2 to 1.<br>9. 18 numbers (1-18) pays even money.<br>10. 18 numbers (19-36) pays even money.<br>11. Red or black pays even money.<br>12. Odd or even bets pay even money.</p>
+| <img src="https://i.imgur.com/DBXEaCN.jpg" width="200"> | <p align="left">1. Single number bet pays 35 to 1. Also called “straight up.” <br>2. Double number bet pays 17 to 1. Also called a “split.”<br>3. Three number bet pays 11 to 1. Also called a “street.”<br> 4. Four number bet pays 8 to 1. Also called a “corner bet.”<br>5. Five number bet pays 6 to 1. Only one specific bet which includes the following numbers: 0-00-1-2-3.<br>6. Six number bets pays 5 to 1.Example: 7, 8, 9, 10, 11, 12. Also called a “line.”<br>7. Twelve numbers or dozens (first, second, third dozen) pays 2 to 1.<br>8. Column bet (12 numbers in a row) pays 2 to 1.<br>9. 18 numbers (1-18) pays even money.<br>10. 18 numbers (19-36) pays even money.<br>11. Red or black pays even money.<br>12. Odd or even bets pay even money.</p>
 
 
 ## 💻 Screenshots
 | Screenshot | Description |
 |:------------:|:------------:|
-|**Home Page**| <img src="https://i.imgur.com/WjteKfw.png" width="600">  
+|**Home Page**| <img src="https://i.imgur.com/ddYUSHB.png" width="600">  
 |**Before Bet**| <img src="https://i.imgur.com/fRILpxu.png" width="600"> 
 |**After Bet**| <img src="https://i.imgur.com/9S8fhHg.png" width="600"> 
 |**After Spin**| <img src="https://i.imgur.com/vRS11Hq.png" width="600"> 
