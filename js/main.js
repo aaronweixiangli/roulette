@@ -217,7 +217,7 @@ function handleUndo() {
     balance += chip;
     totalBet -= chip;
     for (let betNum of betNumbers) {
-        payout[betNum] -= chosenChip * OPTIONS[betOption];
+        payout[betNum] -= chip * OPTIONS[betOption];
     }
     // if the payout for a bet number is 0, then delete that property from the Object payout
     for (const key in payout) {
@@ -238,7 +238,7 @@ function handleClear() {
         balance += chip;
         totalBet -= chip;
         for (let betNum of betNumbers) {
-            payout[betNum] -= chosenChip * OPTIONS[betOption];
+            payout[betNum] -= chip * OPTIONS[betOption];
         }
     };
     for (const key in payout) {
